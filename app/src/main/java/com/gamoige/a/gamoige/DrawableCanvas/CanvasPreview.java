@@ -58,16 +58,20 @@ public class CanvasPreview extends View implements CanvasListener {
         drawn = 0;
     }
 
-    @Override
-    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
-        super.onSizeChanged(width, height, oldWidth, oldHeight);
+    private void fullReset() {
         paths.clear();
         redoStack.clear();
         current = null;
         lastPoint = null;
         initPaint();
+        clear();
+    }
+
+    @Override
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+        super.onSizeChanged(width, height, oldWidth, oldHeight);
+        fullReset();
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        drawn = 0;
         for (Action action : actions) applyAction(action);
         invalidate();
     }
@@ -159,7 +163,8 @@ public class CanvasPreview extends View implements CanvasListener {
                             actions.set(i, new Action(point, size.x, size.y, current.color(),
                                     current.size() * scaleFactor, current.pathEnd()));
                         }
-                    clear();
+                    fullReset();
+                    for (Action current : actions) applyAction(current);
                 }
             lastMasterSize = size;
         }
