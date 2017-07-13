@@ -1,6 +1,5 @@
 package com.gamoige.a.gamoige.DrawableCanvas;
 
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -22,6 +21,8 @@ public class CanvasView extends CanvasPreview {
     private boolean drawing = false;
     private int color = Color.BLACK;
     private float size = 0.0078125f;
+    private float virtualWidth = -1.0f;
+    private float virtualHeight = -1.0f;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,7 +41,29 @@ public class CanvasView extends CanvasPreview {
     }
 
     private void send(PointF point, boolean endPath) {
-        send(new Action(point, getWidth(), getHeight(),
+        if (virtualWidth < 0.0f || virtualHeight < 0.0f) {
+            virtualWidth = Math.min(getWidth(), getHeight());
+            virtualHeight = virtualWidth;
+        }
+        else if (virtualWidth != getWidth() && virtualHeight != getHeight()) {
+            float aspect = (((float)getWidth()) / ((float)getHeight()));
+            float virtualAspect = (virtualWidth / virtualHeight);
+            if (aspect > virtualAspect) {
+                virtualHeight = getHeight();
+                virtualWidth = (virtualHeight * virtualAspect);
+            } else {
+                virtualWidth = getWidth();
+                virtualHeight = (virtualWidth / virtualAspect);
+            }
+        }
+        float deltaX = Math.abs((point.x * 2.0f) - getWidth());
+        if (deltaX <= getWidth() && deltaX > virtualWidth) virtualWidth = deltaX;
+        float deltaY = Math.abs((point.y * 2.0f) - getHeight());
+        if (deltaY <= getHeight() && deltaY > virtualHeight) virtualHeight = deltaY;
+        send(new Action(new PointF(
+                (point.x - (getWidth() / 2.0f)) + (virtualWidth / 2.0f),
+                (point.y - (getHeight() / 2.0f)) + (virtualHeight / 2.0f)),
+                virtualWidth, virtualHeight,
                 color, size * Math.min(getWidth(), getHeight()), endPath));
     }
 
@@ -84,6 +107,8 @@ public class CanvasView extends CanvasPreview {
     private static final String DRAWING_KEY = "::DRAWING_KEY";
     private static final String COLOR_KEY = "::COLOR_KEY";
     private static final String SIZE_KEY = "::SIZE_KEY";
+    private static final String VIRTUAL_WIDTH_KEY = "::VIRTUAL_WIDTH_KEY";
+    private static final String VIRTUAL_HEIGHT_KEY = "::VIRTUAL_HEIGHT_KEY";
 
     @Override
     public void save(Bundle bundle, String canvasName) {
@@ -92,6 +117,8 @@ public class CanvasView extends CanvasPreview {
         bundle.putBoolean(canvasName + ENTRY_KEY + DRAWING_KEY, drawing);
         bundle.putInt(canvasName + ENTRY_KEY + COLOR_KEY, color);
         bundle.putFloat(canvasName + ENTRY_KEY + SIZE_KEY, size);
+        bundle.putFloat(canvasName + ENTRY_KEY + VIRTUAL_WIDTH_KEY, virtualWidth);
+        bundle.putFloat(canvasName + ENTRY_KEY + VIRTUAL_HEIGHT_KEY, virtualHeight);
     }
     @Override
     public void restore(Bundle bundle, String canvasName) {
@@ -100,5 +127,7 @@ public class CanvasView extends CanvasPreview {
         drawing = bundle.getBoolean(canvasName + ENTRY_KEY + DRAWING_KEY, drawing);
         color = bundle.getInt(canvasName + ENTRY_KEY + COLOR_KEY, color);
         size = bundle.getFloat(canvasName + ENTRY_KEY + SIZE_KEY, size);
+        virtualWidth = bundle.getFloat(canvasName + ENTRY_KEY + VIRTUAL_WIDTH_KEY, virtualWidth);
+        virtualWidth = bundle.getFloat(canvasName + ENTRY_KEY + VIRTUAL_HEIGHT_KEY, virtualHeight);
     }
 }
