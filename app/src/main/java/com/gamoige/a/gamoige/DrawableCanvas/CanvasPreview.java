@@ -39,6 +39,7 @@ public class CanvasPreview extends View implements CanvasListener {
     private Paint paint;
     private Bitmap bitmap = null;
     private int drawn = 0;
+    private PointF lastMasterSize = null;
 
     private void initPaint() {
         paint = new Paint();
@@ -85,17 +86,24 @@ public class CanvasPreview extends View implements CanvasListener {
         if (current != null) canvas.drawPath(current.path, current.paint);
     }
 
+    private float translate(float w0, float h0, float w1, float h1, PointF p) {
+        float scaleFactor;
+        float srcAspect = (w0 / h0);
+        float aspect = (w1 / h1);
+        if (aspect > srcAspect) scaleFactor = (h1 / h0);
+        else scaleFactor = (w1 / w0);
+        p.x = ((p.x - w0 / 2.0f) * scaleFactor + w1 / 2.0f);
+        p.y = ((p.y - h0 / 2.0f) * scaleFactor + h1 / 2.0f);
+        return scaleFactor;
+    }
+
     private void applyAction(Action action) {
         if (action.getType() == Action.Type.DRAW) {
-            float scaleFactor;
-            float srcAspect = (action.width() / action.height());
-            float aspect = (((float)getWidth()) / ((float)getHeight()));
-            if (aspect > srcAspect) scaleFactor = (getHeight() / action.height());
-            else scaleFactor = (getWidth() / action.width());
-            PointF rawPoint = action.point();
-            PointF point = new PointF(
-                    (rawPoint.x - action.width() / 2.0f) * scaleFactor + getWidth() / 2.0f,
-                    (rawPoint.y - action.height() / 2.0f) * scaleFactor + getHeight() / 2.0f);
+            PointF point = action.point();
+            float scaleFactor = translate(
+                    action.width(), action.height(),
+                    getWidth(), getHeight(),
+                    point);
             paint.setColor(action.color());
             paint.setStrokeWidth(action.size() * scaleFactor);
             if (action.pathEnd()) {
@@ -135,9 +143,30 @@ public class CanvasPreview extends View implements CanvasListener {
         }
     }
 
+    private void addAction(Action action) {
+        if (action.getType() == Action.Type.DRAW) {
+            PointF size = new PointF(action.width(), action.height());
+            if (lastMasterSize != null)
+                if (lastMasterSize.x != size.x || lastMasterSize.y != size.y)
+                    for (int i = 0; i < actions.size(); i++)
+                        if (actions.get(i).getType() == Action.Type.DRAW) {
+                            Action current = actions.get(i);
+                            PointF point = current.point();
+                            float scaleFactor = translate(
+                                    current.width(), current.height(),
+                                    size.x, size.y,
+                                    point);
+                            actions.set(i, new Action(point, size.x, size.y, current.color(),
+                                    current.size() * scaleFactor, current.pathEnd()));
+                        }
+            lastMasterSize = size;
+        }
+        actions.add(action);
+    }
+
     @Override
     public void actionPerformed(Action action) {
-        actions.add(action);
+        addAction(action);
         applyAction(action);
         invalidate();
     }
@@ -153,6 +182,6 @@ public class CanvasPreview extends View implements CanvasListener {
     public void restore(Bundle bundle, String canvasName) {
         if (bundle == null) return;
         ArrayList<Action> saved = (ArrayList<Action>) bundle.getSerializable(key(canvasName));
-        if (saved != null) actions = saved;
+        if (saved != null) for(Action action : saved) addAction(action);
     }
 }
