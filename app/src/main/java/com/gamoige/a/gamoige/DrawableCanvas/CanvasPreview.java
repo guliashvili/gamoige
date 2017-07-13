@@ -147,7 +147,7 @@ public class CanvasPreview extends View implements CanvasListener {
         if (action.getType() == Action.Type.DRAW) {
             PointF size = new PointF(action.width(), action.height());
             if (lastMasterSize != null)
-                if (lastMasterSize.x != size.x || lastMasterSize.y != size.y)
+                if (lastMasterSize.x != size.x || lastMasterSize.y != size.y) {
                     for (int i = 0; i < actions.size(); i++)
                         if (actions.get(i).getType() == Action.Type.DRAW) {
                             Action current = actions.get(i);
@@ -159,6 +159,8 @@ public class CanvasPreview extends View implements CanvasListener {
                             actions.set(i, new Action(point, size.x, size.y, current.color(),
                                     current.size() * scaleFactor, current.pathEnd()));
                         }
+                    clear();
+                }
             lastMasterSize = size;
         }
         actions.add(action);
