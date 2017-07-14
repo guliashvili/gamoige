@@ -40,22 +40,36 @@ public class CanvasView extends CanvasPreview {
             listener.actionPerformed(action);
     }
 
-    private void send(PointF point, boolean endPath) {
-        if (virtualWidth < 0.0f || virtualHeight < 0.0f) {
-            virtualWidth = Math.min(getWidth(), getHeight());
+    private boolean fixVirtualDimensions(float width, float height) {
+        if (width <= 0.0f || height <= 0.0f) return false;
+        else if (virtualWidth < 0.0f || virtualHeight < 0.0f) {
+            virtualWidth = Math.min(width, height);
             virtualHeight = virtualWidth;
+            setActionResolution(virtualWidth, virtualHeight);
         }
-        else if (virtualWidth != getWidth() && virtualHeight != getHeight()) {
-            float aspect = (((float)getWidth()) / ((float)getHeight()));
+        else if (virtualWidth != width && virtualHeight != height) {
+            float aspect = (width / height);
             float virtualAspect = (virtualWidth / virtualHeight);
             if (aspect > virtualAspect) {
-                virtualHeight = getHeight();
+                virtualHeight = height;
                 virtualWidth = (virtualHeight * virtualAspect);
             } else {
-                virtualWidth = getWidth();
+                virtualWidth = height;
                 virtualHeight = (virtualWidth / virtualAspect);
             }
+            setActionResolution(virtualWidth, virtualHeight);
         }
+        return true;
+    }
+
+    @Override
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+        fixVirtualDimensions(width, height);
+        super.onSizeChanged(width, height, oldWidth, oldHeight);
+    }
+
+    private void send(PointF point, boolean endPath) {
+        if (!fixVirtualDimensions(getWidth(), getHeight())) return;
         float deltaX = Math.abs((point.x * 2.0f) - getWidth());
         if (deltaX <= getWidth() && deltaX > virtualWidth) virtualWidth = deltaX;
         float deltaY = Math.abs((point.y * 2.0f) - getHeight());
@@ -129,5 +143,6 @@ public class CanvasView extends CanvasPreview {
         size = bundle.getFloat(canvasName + ENTRY_KEY + SIZE_KEY, size);
         virtualWidth = bundle.getFloat(canvasName + ENTRY_KEY + VIRTUAL_WIDTH_KEY, virtualWidth);
         virtualWidth = bundle.getFloat(canvasName + ENTRY_KEY + VIRTUAL_HEIGHT_KEY, virtualHeight);
+        fixVirtualDimensions(getWidth(), getHeight());
     }
 }
