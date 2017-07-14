@@ -74,6 +74,7 @@ public class CanvasPreview extends View implements CanvasListener {
     protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
         super.onSizeChanged(width, height, oldWidth, oldHeight);
         fullReset();
+        if (bitmap != null) bitmap.recycle();
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         for (Action action : actions) applyAction(action);
         invalidate();
