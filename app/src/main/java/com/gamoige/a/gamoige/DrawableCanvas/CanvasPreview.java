@@ -46,6 +46,7 @@ public class CanvasPreview extends View implements CanvasListener {
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(4);
+        paint.setStrokeCap(Paint.Cap.ROUND);
     }
 
     public CanvasPreview(Context context, AttributeSet attrs) {
@@ -147,11 +148,13 @@ public class CanvasPreview extends View implements CanvasListener {
         }
     }
 
-    private void addAction(Action action) {
-        if (action.getType() == Action.Type.DRAW) {
-            PointF size = new PointF(action.width(), action.height());
+    protected boolean setActionResolution(float actionWidth, float actionHeight) {
+        if (actionWidth <= 0 || actionHeight <= 0) return false;
+        else {
+            PointF size = new PointF(actionWidth, actionHeight);
             if (lastMasterSize != null)
                 if (lastMasterSize.x != size.x || lastMasterSize.y != size.y) {
+                    boolean shouldDoFullReset = false;
                     for (int i = 0; i < actions.size(); i++)
                         if (actions.get(i).getType() == Action.Type.DRAW) {
                             Action current = actions.get(i);
@@ -162,12 +165,21 @@ public class CanvasPreview extends View implements CanvasListener {
                                     point);
                             actions.set(i, new Action(point, size.x, size.y, current.color(),
                                     current.size() * scaleFactor, current.pathEnd()));
+                            shouldDoFullReset |= (scaleFactor != 1.0f);
                         }
-                    fullReset();
-                    for (Action current : actions) applyAction(current);
+                    if (shouldDoFullReset) {
+                        fullReset();
+                        for (Action current : actions) applyAction(current);
+                    }
                 }
             lastMasterSize = size;
+            return true;
         }
+    }
+
+    private void addAction(Action action) {
+        if (action.getType() == Action.Type.DRAW)
+            setActionResolution(action.width(), action.height());
         actions.add(action);
     }
 
