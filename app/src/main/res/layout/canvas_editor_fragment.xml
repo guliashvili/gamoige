@@ -44,7 +44,7 @@
                 android:src="@android:drawable/ic_menu_edit"/>
         </RelativeLayout>
     </LinearLayout>
-    <com.example.donskyproductions.canvastest.CanvasView
+    <com.gamoige.a.gamoige.DrawableCanvas.CanvasView
         android:id="@+id/canvas_editor_canvas_view"
         android:layout_margin="8dp"
         android:layout_width="match_parent"
