@@ -5,4 +5,5 @@
     <string name="app_id">997929626787</string>
     <string name="LEADERBOARD_ID">CgkIo9n2yYUdEAIQAg</string>
     <string name="submitted_answer_default">No answer</string>
+    <string name="guess_word_hint">Guess...</string>
 </resources>

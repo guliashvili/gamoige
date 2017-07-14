@@ -71,13 +71,15 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="5dp"
                 android:layout_gravity="end"
-                android:src="@drawable/accept"/>
+                android:src="@drawable/accept"
+                android:scaleType="center"/>
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/submitted_reject"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="end"
-                android:src="@drawable/reject"/>
+                android:src="@drawable/reject"
+                android:scaleType="center"/>
         </LinearLayout>
         <TextView
             android:id="@+id/submitted_word"
@@ -87,7 +89,8 @@
             android:gravity="start"
             android:padding="10dp"
             android:textSize="20sp"
-            android:hint="@string/submitted_answer_default"/>
+            android:hint="@string/submitted_answer_default"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 </LinearLayout>
