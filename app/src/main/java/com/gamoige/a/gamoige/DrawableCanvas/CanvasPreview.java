@@ -154,7 +154,6 @@ public class CanvasPreview extends View implements CanvasListener {
             PointF size = new PointF(actionWidth, actionHeight);
             if (lastMasterSize != null)
                 if (lastMasterSize.x != size.x || lastMasterSize.y != size.y) {
-                    boolean shouldDoFullReset = false;
                     for (int i = 0; i < actions.size(); i++)
                         if (actions.get(i).getType() == Action.Type.DRAW) {
                             Action current = actions.get(i);
@@ -165,12 +164,9 @@ public class CanvasPreview extends View implements CanvasListener {
                                     point);
                             actions.set(i, new Action(point, size.x, size.y, current.color(),
                                     current.size() * scaleFactor, current.pathEnd()));
-                            shouldDoFullReset |= (scaleFactor != 1.0f);
                         }
-                    if (shouldDoFullReset) {
-                        fullReset();
-                        for (Action current : actions) applyAction(current);
-                    }
+                    fullReset();
+                    for (Action current : actions) applyAction(current);
                 }
             lastMasterSize = size;
             return true;
