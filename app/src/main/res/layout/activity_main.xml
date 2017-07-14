@@ -30,4 +30,11 @@
         android:text="select friends game"
         android:onClick="startSelectFriends"/>
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="startdonsk"
+        android:onClick="startdonsk"/>
+
 </LinearLayout>
