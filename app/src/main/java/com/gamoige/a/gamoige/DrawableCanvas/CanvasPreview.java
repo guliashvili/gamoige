@@ -168,8 +168,12 @@ public class CanvasPreview extends View implements CanvasListener {
                             actions.set(i, new Action(point, size.x, size.y, current.color(),
                                     current.size() * scaleFactor, current.pathEnd()));
                         }
-                    fullReset();
-                    for (Action current : actions) applyAction(current);
+                    if (translate(size.x, size.y, getWidth(), getHeight(), new PointF(0.0f, 0.0f))
+                            != translate(lastMasterSize.x, lastMasterSize.y,
+                            getWidth(), getHeight(), new PointF(0.0f, 0.0f))) {
+                        fullReset();
+                        for (Action current : actions) applyAction(current);
+                    }
                 }
             lastMasterSize = size;
             return true;
