@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -236,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     public void startLeaderBoard(View view) {
+        Log.e("info","startLeaderBoard");
         //TODO remove
         Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.LEADERBOARD_ID), 1337);
 
@@ -246,12 +248,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onRoomConnecting(Room room) {
+        Log.e("info","onRoomConnecting");
         mRoomId = room.getRoomId();
 
     }
 
     @Override
     public void onRoomAutoMatching(Room room) {
+        Log.e("info","onRoomAutoMatching");
         mRoomId = room.getRoomId();
 
 
@@ -259,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onPeerInvitedToRoom(Room room, List<String> list) {
+        Log.e("info","onPeerInvitedToRoom");
         mRoomId = room.getRoomId();
 
 
@@ -266,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onPeerDeclined(Room room, List<String> peers) {
+        Log.e("info","onPeerDeclined");
         mRoomId = room.getRoomId();
 
         // peer declined invitation -- see if game should be canceled
@@ -277,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onPeerJoined(Room room, List<String> list) {
+        Log.e("info","onPeerJoined");
         mRoomId = room.getRoomId();
 
 
@@ -284,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onPeerLeft(Room room, List<String> peers) {
+        Log.e("info","onPeerLeft");
         mRoomId = room.getRoomId();
 
         // peer left -- see if game should be canceled
@@ -295,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnectedToRoom(Room room) {
+        Log.e("info","onConnectedToRoom");
         mRoomId = room.getRoomId();
 
 
@@ -302,6 +311,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onDisconnectedFromRoom(Room room) {
+        Log.e("info","onDisconnectedFromRoom");
         mRoomId = room.getRoomId();
 
 
@@ -309,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onPeersConnected(Room room, List<String> peers) {
+        Log.e("info","onPeersConnected");
         mRoomId = room.getRoomId();
 
         if (mPlaying) {
@@ -320,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onPeersDisconnected(Room room, List<String> peers) {
+        Log.e("info","onPeersDisconnected");
         mRoomId = room.getRoomId();
 
         if (mPlaying) {
@@ -335,21 +347,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onP2PConnected(String s) {
+        Log.e("info","onP2PConnected");
 
     }
 
     @Override
     public void onP2PDisconnected(String s) {
+        Log.e("info","onP2PDisconnected");
 
     }
 
     @Override
     public void onRealTimeMessageReceived(RealTimeMessage realTimeMessage) {
+        Log.e("info","onRealTimeMessageReceived");
 
     }
 
     @Override
     public void onRoomCreated(int statusCode, Room room) {
+        Log.e("info","onRoomCreated");
         mRoomId = room.getRoomId();
 
         if (statusCode != GamesStatusCodes.STATUS_OK) {
@@ -368,6 +384,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onJoinedRoom(int statusCode, Room room) {
+        Log.e("info","onJoinedRoom");
         mRoomId = room.getRoomId();
 
         if (statusCode != GamesStatusCodes.STATUS_OK) {
@@ -387,11 +404,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onLeftRoom(int i, String s) {
+        Log.e("info","onLeftRoom");
 
     }
 
     @Override
     public void onRoomConnected(int statusCode, Room room) {
+        Log.e("info","onRoomConnected");
         mRoomId = room.getRoomId();
 
         if (statusCode != GamesStatusCodes.STATUS_OK) {
@@ -403,6 +422,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private RoomConfig.Builder makeBasicRoomConfigBuilder() {
+        Log.e("info","makeBasicRoomConfigBuilder");
         return RoomConfig.builder(this)
                 .setMessageReceivedListener(this)
                 .setRoomStatusUpdateListener(this);
@@ -410,9 +430,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     public void startQuickGame(View view) {
+        Log.e("info","startQuickGame");
         // auto-match criteria to invite one random automatch opponent.
         // You can also specify more opponents (up to 3).
-        Bundle am = RoomConfig.createAutoMatchCriteria(1, 1, 0);
+        Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
 
         // build the room config:
         RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
@@ -430,6 +451,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void startSelectFriends(View view) {
+        Log.e("info","startSelectFriends");
         // launch the player selection screen
         // minimum: 1 other player; maximum: 3 other players
         Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(mGoogleApiClient, 1, 3);
@@ -438,6 +460,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     // returns whether there are enough players to start the game
     boolean shouldStartGame(Room room) {
+        Log.e("info","shouldStartGame");
         mRoomId = room.getRoomId();
 
         int connectedPlayers = 0;
@@ -449,6 +472,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     // Returns whether the room is in a state where the game should be canceled.
     boolean shouldCancelGame(Room room) {
+        Log.e("info","shouldCancelGame");
         mRoomId = room.getRoomId();
 
         // TODO: Your game-specific cancellation logic here. For example, you might decide to
