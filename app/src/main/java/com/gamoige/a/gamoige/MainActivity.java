@@ -489,6 +489,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     public void startdonsk(View view) {
-        startActivity(new Intent(this, CanvasEditorTestActivity.class));
+        startActivity(new Intent(this, PreviewActivity.class));
     }
 }
