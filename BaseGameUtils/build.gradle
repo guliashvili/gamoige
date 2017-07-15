@@ -49,6 +49,8 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
+
+        multiDexEnabled true
         minSdkVersion android_min_version
         targetSdkVersion android_compile_version
     }
