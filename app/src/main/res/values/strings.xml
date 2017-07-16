@@ -8,6 +8,6 @@
     <string name="guess_word_hint">Guess...</string>
     <string name="leaderboard_btn">Leaderboard</string>
     <string name="quick_game_btn">Quick game</string>
-    <string name="select_friends_game_btn">Select friends game</string>
+    <string name="select_friends_game_btn">Select game</string>
     <string name="make_me_drawer_btn">Draw</string>
 </resources>
