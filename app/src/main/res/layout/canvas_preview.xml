@@ -7,7 +7,15 @@
     <Button
         android:id="@+id/make_me_drawer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/make_me_drawer_btn_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:layout_margin="10dp"
+        android:shadowRadius="5"
         android:text="@string/make_me_drawer_btn"/>
 
     <com.gamoige.a.gamoige.DrawableCanvas.CanvasPreview
