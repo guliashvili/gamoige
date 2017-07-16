@@ -8,7 +8,7 @@
         android:id="@+id/make_me_drawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Draw"/>
+        android:text="@string/make_me_drawer_btn"/>
 
     <com.gamoige.a.gamoige.DrawableCanvas.CanvasPreview
         android:id="@+id/canvas_preview"
