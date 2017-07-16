@@ -52,7 +52,7 @@ public class PreviewActivity extends AppCompatActivity
             findViewById(R.id.make_me_drawer).setOnClickListener(this);
             canvasPreview = (CanvasPreview) findViewById(R.id.canvas_preview);
         }
-        parent = ((MainActivity) getIntent().getExtras().get("MainActivity"));
+        parent = MainActivity.getMainActivity();
         ((PreviewActivityYelder)getIntent().getExtras().get("Yelder")).register(this);
     }
 

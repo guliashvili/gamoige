@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PreviewActivityYelder implements Serializable{
     private List<PreviewActivityYeldListener> listeners = new ArrayList<>();
-    public void takeThings(List<CanvasListener.Action> actions){
+    public void takeThings(CanvasListener.Action... actions){
         for(PreviewActivityYeldListener listener : listeners)
             for(CanvasListener.Action action : actions)
                 listener.doAction(action);
@@ -21,9 +21,13 @@ public class PreviewActivityYelder implements Serializable{
     public void register(PreviewActivityYeldListener listener){
         listeners.add(listener);
         if(listeners.size() > 1){
-            throw new RuntimeException();
+            throw new RuntimeException("More then one listener?");
         }
     }
-
-    public PreviewActivityYeldListener
+    public PreviewActivity getPreviewActivity(){
+        if(listeners.size() != 1){
+            throw new RuntimeException("No litener? " + listeners.size());
+        }
+        return (PreviewActivity)listeners.get(0);
+    }
 }
