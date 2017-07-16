@@ -13,6 +13,7 @@ import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasEditorTestActivity;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
+import com.gamoige.a.gamoige.packages.Package;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,15 +33,21 @@ import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateListene
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateListener;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class MainActivity extends AppCompatActivity implements RealTimeMultiplayer.ReliableMessageSentCallback, Serializable, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, RoomUpdateListener, RealTimeMessageReceivedListener, RoomStatusUpdateListener {
+    private static MainActivity mainActivity;
+    public static MainActivity getMainActivity(){return mainActivity;}
     private static final int REQUEST_LEADERBOARD = 1;
     public static GoogleApiClient mGoogleApiClient;
     private static int RC_SIGN_IN = 9001;
@@ -99,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = this;
         setContentView(R.layout.activity_main);
 
         // Create the Google Api Client with access to the Play Games services
@@ -119,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -372,12 +379,6 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
     }
 
     @Override
-    public void onRealTimeMessageReceived(RealTimeMessage realTimeMessage) {
-        Log.e("info","onRealTimeMessageReceived " + realTimeMessage.getSenderParticipantId() + " " + realTimeMessage.getMessageData().toString());
-
-    }
-
-    @Override
     public void onRoomCreated(int statusCode, Room room) {
         Log.e("info","onRoomCreated " + statusCode + " " + room.getRoomId());
         mRoomId = room.getRoomId();ROOM=room;
@@ -496,13 +497,31 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
         return false;
     }
 
-    private PreviewActivityYelder previewActivityYelder = new PreviewActivityYelder();
+    private PreviewActivityYelder previewActivityYelder;
+
     public void startdonsk(View view) {
+        previewActivityYelder = new PreviewActivityYelder();
         Intent intent = new Intent(this, PreviewActivity.class);
-        intent.putExtra("MainActivity", this);
         intent.putExtra("Yelder", previewActivityYelder);
         startActivity(intent);
     }
+
+
+    @Override
+    public void onRealTimeMessageReceived(RealTimeMessage realTimeMessage) {
+        Log.e("info","onRealTimeMessageReceived " + realTimeMessage.getSenderParticipantId() + " " + realTimeMessage.getMessageData().toString());
+        ByteArrayInputStream in = new ByteArrayInputStream(realTimeMessage.getMessageData());
+        try{
+
+            ObjectInputStream is = new ObjectInputStream(in);
+            Package p = (Package)is.readObject();
+            p.doit(this);
+        }catch (Exception e){
+            Log.e("info", e.getMessage().toString());
+            return;
+        }
+    }
+
     private void send(Serializable a, boolean relaible, String participantId){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
@@ -530,14 +549,15 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
 
     }
     public void newLine(CanvasListener.Action action){
-
-
         for(Participant p : ROOM.getParticipants()){
             if(!Games.Players.getCurrentPlayerId(mGoogleApiClient).equals(p.getParticipantId())){
                 send(action,true, p.getParticipantId());
             }
         }
-
+    }
+    public void recieveLine(CanvasListener.Action action){
+        Log.e("info", "recieveLine");
+        previewActivityYelder.getPreviewActivity().doAction(action);
     }
 
     @Override

@@ -10,5 +10,5 @@ import java.io.Serializable;
  */
 
 public interface Package extends Serializable {
-    void doit(MainActivity mainActivity, PreviewActivity previewActivity);
+    void doit(MainActivity mainActivity);
 }
