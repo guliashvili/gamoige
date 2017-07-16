@@ -13,28 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:layout_margin="8dp"
-        android:padding="3dp">
+        android:layout_margin="@dimen/canvas_view_margin"
+        android:padding="@dimen/canvas_view_bottom_actions_padding">
         <LinearLayout
             android:id="@+id/submit_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="@dimen/canvas_view_bottom_buttons_margin"
+            android:layout_marginStart="@dimen/canvas_view_bottom_buttons_margin"
             android:layout_centerVertical="true">
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/submitted_accept"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="@dimen/canvas_view_bottom_button_width"
+                android:layout_height="@dimen/canvas_view_bottom_button_height"
+                android:layout_marginEnd="@dimen/canvas_view_bottom_buttons_margin"
                 android:layout_gravity="end"
                 android:src="@drawable/accept"
                 android:scaleType="center"/>
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/submitted_reject"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/canvas_view_bottom_button_width"
+                android:layout_height="@dimen/canvas_view_bottom_button_height"
                 android:layout_gravity="end"
                 android:src="@drawable/reject"
                 android:scaleType="center"/>
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/submit_actions"
             android:gravity="start"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="@dimen/answer_submission_view_padding"
+            android:textSize="@dimen/answer_submission_view_font_size"
             android:hint="@string/submitted_answer_default"
             android:layout_centerVertical="true"/>
 

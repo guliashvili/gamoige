@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="canvas_view_margin">8dp</dimen>
+    <dimen name="canvas_view_bottom_actions_padding">3dp</dimen>
+    <dimen name="canvas_view_bottom_buttons_margin">5dp</dimen>
+    <dimen name="canvas_view_bottom_button_width">40dp</dimen>
+    <dimen name="canvas_view_bottom_button_height">40dp</dimen>
+    <dimen name="answer_submission_view_padding">10dp</dimen>
+    <dimen name="answer_submission_view_font_size">20sp</dimen>
+    <dimen name="answer_view_font_size">20sp</dimen>
+    <dimen name="start_page_actions_font_size">30sp</dimen>
+    <dimen name="start_page_actions_width">270dp</dimen>
+    <dimen name="start_page_actions_height">60dp</dimen>
+    <dimen name="start_page_actions_margin_bottom">15dp</dimen>
+    <dimen name="canvas_preview_draw_btn_margin">10dp</dimen>
+    <dimen name="make_me_drawer_btn_height">35dp</dimen>
+    <dimen name="make_me_drawer_btn_font_size">18sp</dimen>
+    <dimen name="canvas_draw_tool_bar_height">48dp</dimen>
+    <dimen name="canvas_draw_tool_margin">4dp</dimen>
+    <dimen name="canvas_draw_tool_width">48dp</dimen>
+</resources>

@@ -8,29 +8,29 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="@dimen/canvas_draw_tool_bar_height">
         <ImageView
             android:id="@+id/canvas_editor_undo"
-            android:layout_margin="4dp"
-            android:layout_width="48dp"
+            android:layout_margin="@dimen/canvas_draw_tool_margin"
+            android:layout_width="@dimen/canvas_draw_tool_width"
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_menu_revert"/>
         <ImageView
             android:id="@+id/canvas_editor_redo"
-            android:layout_margin="4dp"
-            android:layout_width="48dp"
+            android:layout_margin="@dimen/canvas_draw_tool_margin"
+            android:layout_width="@dimen/canvas_draw_tool_width"
             android:scaleX="-1"
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_menu_revert"/>
         <SeekBar
             android:id="@+id/canvas_editor_size_slider"
-            android:layout_margin="4dp"
+            android:layout_margin="@dimen/canvas_draw_tool_margin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <RelativeLayout
-            android:layout_margin="4dp"
-            android:layout_width="48dp"
+            android:layout_margin="@dimen/canvas_draw_tool_margin"
+            android:layout_width="@dimen/canvas_draw_tool_width"
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/canvas_editor_eraser"
@@ -46,7 +46,7 @@
     </LinearLayout>
     <com.gamoige.a.gamoige.DrawableCanvas.CanvasView
         android:id="@+id/canvas_editor_canvas_view"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/canvas_view_margin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
