@@ -36,7 +36,7 @@
                 android:id="@+id/canvas_editor_eraser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@android:drawable/ic_menu_delete"/>
+                android:src="@drawable/eraser"/>
             <ImageView
                 android:id="@+id/canvas_editor_pencil"
                 android:layout_width="match_parent"
