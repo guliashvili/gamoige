@@ -138,6 +138,7 @@
         <activity android:name=".DrawableCanvas.CanvasEditorTestActivity" />
         <activity android:name=".DrawerActivity" />
         <activity android:name=".PreviewActivity"></activity>
+        <activity android:name=".TmpMainActivity"/>
     </application>
 
 </manifest>
