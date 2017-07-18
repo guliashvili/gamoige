@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fragment
+        android:id="@+id/home_screen_fragment"
+        android:name="com.gamoige.a.gamoige.Fragments.HomeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <fragment
+        android:id="@+id/play_screen_fragment"
+        android:name="com.gamoige.a.gamoige.Fragments.PlayScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <fragment
+        android:id="@+id/connection_fragment"
+        android:name="com.gamoige.a.gamoige.Fragments.ConnectionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
