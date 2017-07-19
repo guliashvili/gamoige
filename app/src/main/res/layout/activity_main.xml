@@ -50,7 +50,7 @@
         android:shadowDy="0"
         android:shadowRadius="5"
         android:text="@string/select_friends_game_btn"
-        android:onClick="startSelectFriends"/>
+        android:id="@+id/selectFriendBtn"/>
 
     <!-- <Button
         android:layout_width="wrap_content"

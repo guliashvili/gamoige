@@ -1,5 +1,6 @@
 package com.gamoige.a.gamoige.Fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,12 @@ public class HomeScreen extends Fragment {
             @Override
             public void onClick(View v) {
                 startQuickGame(v);
+            }
+        });
+        view.findViewById(R.id.selectFriendBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSelectFriends(v);
             }
         });
         return view;
@@ -75,6 +82,14 @@ public class HomeScreen extends Fragment {
 
         // go to game screen
         //TODO
+    }
+
+    public void startSelectFriends(View view) {
+        Log.e("info","startSelectFriends");
+        // launch the player selection screen
+        // minimum: 1 other player; maximum: 3 other players
+        Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(connectionFragment.getConnection(), 1, 3);
+        startActivityForResult(intent, ConnectionFragment.RC_SELECT_PLAYERS);
     }
 
 }

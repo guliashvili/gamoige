@@ -99,13 +99,6 @@ public class MainActivity  extends AppCompatActivity {
 
 
 
-    public void startSelectFriends(View view) {
-        Log.e("info","startSelectFriends");
-        // launch the player selection screen
-        // minimum: 1 other player; maximum: 3 other players
-        Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(mGoogleApiClient, 1, 3);
-        startActivityForResult(intent, RC_SELECT_PLAYERS);
-    }
 
 
     @Override
