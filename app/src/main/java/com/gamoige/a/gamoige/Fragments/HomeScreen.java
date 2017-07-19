@@ -1,23 +1,80 @@
 package com.gamoige.a.gamoige.Fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import com.gamoige.a.gamoige.PreviewActivity;
 import com.gamoige.a.gamoige.R;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 
 /**
  * Created by Donsky on 7/17/2017.
  */
 
 public class HomeScreen extends Fragment {
+    private ConnectionFragment connectionFragment;
+    private View view;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.canvas_editor_fragment, container, false);
+        view = inflater.inflate(R.layout.activity_main, container, false);
+        view.findViewById(R.id.leaderBoardBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLeaderBoard(v);
+            }
+        });
+        view.findViewById(R.id.quickGameBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startQuickGame(v);
+            }
+        });
         return view;
     }
+
+    public void setConnectionFragment(ConnectionFragment fragment){
+        connectionFragment = fragment;
+    }
+
+
+    public void startLeaderBoard(View view) {
+        Log.e("info","startLeaderBoard");
+        //TODO remove
+        Games.Leaderboards.submitScore(connectionFragment.getConnection(), getString(R.string.LEADERBOARD_ID), 1337);
+
+
+        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(connectionFragment.getConnection(),
+                getString(R.string.LEADERBOARD_ID)), ConnectionFragment.REQUEST_LEADERBOARD);
+    }
+
+    public void startQuickGame(View view) {
+        Log.e("info","startQuickGame");
+        // auto-match criteria to invite one random automatch opponent.
+        // You can also specify more opponents (up to 3).
+        Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
+
+        // build the room config:
+        RoomConfig.Builder roomConfigBuilder = connectionFragment.makeBasicRoomConfigBuilder();
+        roomConfigBuilder.setAutoMatchCriteria(am);
+        RoomConfig roomConfig = roomConfigBuilder.build();
+
+        // create room:
+        Games.RealTimeMultiplayer.create(connectionFragment.getConnection(), roomConfig);
+
+        // prevent screen from sleeping during handshake
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        // go to game screen
+        //TODO
+    }
+
 }

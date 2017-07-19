@@ -52,7 +52,6 @@ public class PreviewActivity extends AppCompatActivity
             findViewById(R.id.make_me_drawer).setOnClickListener(this);
             canvasPreview = (CanvasPreview) findViewById(R.id.canvas_preview);
         }
-        parent = MainActivity.getMainActivity();
         ((PreviewActivityYelder)getIntent().getExtras().get("Yelder")).register(this);
     }
 
@@ -71,7 +70,6 @@ public class PreviewActivity extends AppCompatActivity
     public void actionPerformed(Action action) {
         Log.d("PREVIEW_ACTIVITY", "SOME ACTION PERFORMED");
         actions.add(action);
-        parent.newLine(action);
     }
 
     @Override

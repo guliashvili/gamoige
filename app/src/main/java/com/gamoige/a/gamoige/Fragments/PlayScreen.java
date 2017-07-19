@@ -1,6 +1,6 @@
 package com.gamoige.a.gamoige.Fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,11 +15,14 @@ import com.gamoige.a.gamoige.R;
  */
 
 public class PlayScreen extends Fragment {
+    private View view;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.canvas_editor_fragment, container, false);
+        view = inflater.inflate(R.layout.canvas_editor_fragment, container, false);
+        view.setVisibility(View.GONE);
         return view;
     }
 

@@ -16,6 +16,6 @@ public class MasterDraw implements Package{
 
     @Override
     public void doit(MainActivity mainActivity) {
-        mainActivity.recieveLine(action);
+
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,9 @@ import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasEditorTestActivity;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
+import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
+import com.gamoige.a.gamoige.Fragments.HomeScreen;
+import com.gamoige.a.gamoige.Fragments.PlayScreen;
 import com.gamoige.a.gamoige.packages.Package;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -45,7 +49,23 @@ import java.util.List;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
-public class MainActivity extends AppCompatActivity implements RealTimeMultiplayer.ReliableMessageSentCallback, RealTimeMessageReceivedListener {
+public class MainActivity  extends AppCompatActivity {
+    private ConnectionFragment connectionFragment;
+    private HomeScreen homeScreen;
+    private PlayScreen playScreen;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        connectionFragment = (ConnectionFragment) fragmentManager.findFragmentById(R.id.connection_fragment);
+        homeScreen = (HomeScreen) fragmentManager.findFragmentById(R.id.home_screen_fragment);
+        playScreen = (PlayScreen) fragmentManager.findFragmentById(R.id.play_screen_fragment);
+        homeScreen.setConnectionFragment(connectionFragment);
+    }
+/*extends AppCompatActivity implements RealTimeMultiplayer.ReliableMessageSentCallback, RealTimeMessageReceivedListener {
     private static MainActivity mainActivity;
     public static MainActivity getMainActivity(){return mainActivity;}
     private static final int REQUEST_LEADERBOARD = 1;
@@ -76,43 +96,8 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
 
 
 
-    /****************************************/
-    //matchmaking
-
-    /*******************************************/
 
 
-    public void startLeaderBoard(View view) {
-        Log.e("info","startLeaderBoard");
-        //TODO remove
-        Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.LEADERBOARD_ID), 1337);
-
-
-        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient,
-                getString(R.string.LEADERBOARD_ID)), REQUEST_LEADERBOARD);
-    }
-
-
-    public void startQuickGame(View view) {
-        Log.e("info","startQuickGame");
-        // auto-match criteria to invite one random automatch opponent.
-        // You can also specify more opponents (up to 3).
-        Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
-
-        // build the room config:
-        RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
-        roomConfigBuilder.setAutoMatchCriteria(am);
-        RoomConfig roomConfig = roomConfigBuilder.build();
-
-        // create room:
-        Games.RealTimeMultiplayer.create(mGoogleApiClient, roomConfig);
-
-        // prevent screen from sleeping during handshake
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        // go to game screen
-        //TODO
-    }
 
     public void startSelectFriends(View view) {
         Log.e("info","startSelectFriends");
@@ -173,11 +158,11 @@ public class MainActivity extends AppCompatActivity implements RealTimeMultiplay
     }
     public void recieveLine(CanvasListener.Action action){
         Log.e("info", "recieveLine");
-        previewActivityYelder.getPreviewActivity().doAction(action);
     }
 
     @Override
     public void onRealTimeMessageSent(int i, int i1, String s) {
 
     }
+    */
 }
