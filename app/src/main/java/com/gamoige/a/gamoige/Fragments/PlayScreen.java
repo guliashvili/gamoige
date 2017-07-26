@@ -39,7 +39,7 @@ public class PlayScreen extends Fragment {
         drawerView = view.findViewById(R.id.play_screen_fragment_drawer);
         previewView = view.findViewById(R.id.play_screen_fragment_preview);
         drawButton = previewView.findViewById(R.id.make_me_drawer);
-        canvasEditorFragment = (CanvasEditorFragment) getFragmentManager().findFragmentById(R.id.canvas_editor_fragment);
+        canvasEditorFragment = (CanvasEditorFragment) getChildFragmentManager().findFragmentById(R.id.canvas_editor_fragment);
         canvasPreview = (CanvasPreview) previewView.findViewById(R.id.canvas_preview);
         reset();
         drawButton.setOnClickListener(new View.OnClickListener() {
