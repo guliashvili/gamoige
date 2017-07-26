@@ -196,7 +196,14 @@ public class ConnectionFragment extends Fragment {
         }
     }
 
-    private void send(Serializable a, boolean relaible, String participantId){
+    public void sendAll(Serializable a, boolean relaible){
+        for(Participant p : room.getParticipants()){
+            if(!Games.Players.getCurrentPlayerId(googleApiClient).equals(p.getParticipantId())){
+                send(a,true, p.getParticipantId());
+            }
+        }
+    }
+    public void send(Serializable a, boolean relaible, String participantId){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
         byte[] yourBytes;
