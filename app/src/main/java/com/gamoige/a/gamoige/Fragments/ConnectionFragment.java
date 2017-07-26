@@ -225,9 +225,11 @@ public class ConnectionFragment extends Fragment {
 
     private void startGame() {
 
+        Log.e("givorgi", "My id : " + Games.Players.getCurrentPlayerId(googleApiClient));
 
         for (Participant p : room.getParticipants()) {
             if (!Games.Players.getCurrentPlayerId(googleApiClient).equals(p.getParticipantId())) {
+                Log.e("givorgi", "Sending to : " + p.getParticipantId());
                 send("hello", true, p.getParticipantId());
 
 
