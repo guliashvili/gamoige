@@ -50,9 +50,15 @@ import java.util.List;
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity  extends AppCompatActivity {
+    public enum Mode {
+        HOME_SCREEN,
+        PLAY_SCREEN
+    }
+
     private ConnectionFragment connectionFragment;
     private HomeScreen homeScreen;
     private PlayScreen playScreen;
+
 
 
     @Override
@@ -65,6 +71,13 @@ public class MainActivity  extends AppCompatActivity {
         playScreen = (PlayScreen) fragmentManager.findFragmentById(R.id.play_screen_fragment);
         homeScreen.setConnectionFragment(connectionFragment);
     }
+
+
+    public void set(Mode mode) {
+        homeScreen.setActive(mode == Mode.HOME_SCREEN);
+        playScreen.setActive(mode == Mode.PLAY_SCREEN);
+    }
+
 /*extends AppCompatActivity implements RealTimeMultiplayer.ReliableMessageSentCallback, RealTimeMessageReceivedListener {
     private static MainActivity mainActivity;
     public static MainActivity getMainActivity(){return mainActivity;}

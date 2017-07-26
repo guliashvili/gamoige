@@ -26,4 +26,8 @@ public class PlayScreen extends Fragment {
         return view;
     }
 
+
+    public void setActive(boolean active){
+        view.setVisibility(active ? View.VISIBLE : View.GONE);
+    }
 }

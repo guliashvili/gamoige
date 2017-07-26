@@ -92,4 +92,7 @@ public class HomeScreen extends Fragment {
         startActivityForResult(intent, ConnectionFragment.RC_SELECT_PLAYERS);
     }
 
+    public void setActive(boolean active){
+        view.setVisibility(active ? View.VISIBLE : View.GONE);
+    }
 }
