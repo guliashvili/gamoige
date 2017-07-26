@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import com.gamoige.a.gamoige.Listeners.ConnectionCallbackListener;
 import com.gamoige.a.gamoige.Listeners.ConnectionFailedListener;
 import com.gamoige.a.gamoige.Listeners.RealTimeMessageReceivedListeningThing;
+import com.gamoige.a.gamoige.Listeners.RelMsgSentCallBack;
 import com.gamoige.a.gamoige.Listeners.RoomStatusUpdateListeningThing;
 import com.gamoige.a.gamoige.Listeners.RoomUpdateListeningThing;
 import com.gamoige.a.gamoige.R;
@@ -21,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
 import com.google.android.gms.games.multiplayer.Multiplayer;
+import com.google.android.gms.games.multiplayer.Participant;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.example.games.basegameutils.BaseGameUtils;
@@ -43,7 +45,7 @@ public class ConnectionFragment extends Fragment {
     private RoomUpdateListeningThing roomUpdateListeningThing = new RoomUpdateListeningThing(this);
     private RealTimeMessageReceivedListeningThing realTimeMessageRecivedListeningThing = new RealTimeMessageReceivedListeningThing(this);
     private RoomStatusUpdateListeningThing roomStatusUpdateListeningThing = new RoomStatusUpdateListeningThing(this);
-
+    private RelMsgSentCallBack relMsgSentCallBack = new RelMsgSentCallBack(this);
 
     public static final String QE_RO_DAGVENZREVA_IS_TEGI = "CHVEIN_TEGI";
     public static final int REQUEST_LEADERBOARD = 1;
@@ -189,7 +191,16 @@ public class ConnectionFragment extends Fragment {
     }
 
 
-    private void startGame(){
+    private void startGame() {
 
+
+        for (Participant p : room.getParticipants()) {
+            if (!Games.Players.getCurrentPlayerId(googleApiClient).equals(p.getParticipantId())) {
+                Games.RealTimeMultiplayer.sendReliableMessage(googleApiClient, relMsgSentCallBack, "hello".getBytes(), room.getRoomId(),
+                        p.getParticipantId());
+
+
+            }
+        }
     }
 }

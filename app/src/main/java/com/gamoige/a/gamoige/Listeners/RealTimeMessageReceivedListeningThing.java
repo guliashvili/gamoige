@@ -1,5 +1,7 @@
 package com.gamoige.a.gamoige.Listeners;
 
+import android.util.Log;
+
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
@@ -16,6 +18,6 @@ public class RealTimeMessageReceivedListeningThing implements RealTimeMessageRec
 
     @Override
     public void onRealTimeMessageReceived(RealTimeMessage realTimeMessage) {
-
+        Log.e("givorgi", realTimeMessage.getSenderParticipantId() + " " + new String(realTimeMessage.getMessageData()));
     }
 }
