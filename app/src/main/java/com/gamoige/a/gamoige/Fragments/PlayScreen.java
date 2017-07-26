@@ -13,6 +13,7 @@ import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasPreview;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
+import com.gamoige.a.gamoige.packages.MasterDraw;
 
 /**
  * Created by Donsky on 7/17/2017.
@@ -52,7 +53,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
             @Override
             public void actionPerformed(Action action) {
                 if (state == State.DRAWER) {
-                    Log.e("Donsky", "COULD SEND, BUT...");
+                    connectionFragment.sendAll(new MasterDraw(action), true);
                 } else {
                     Log.e("Donsky", "UNEXPECTED ACTION...");
                 }

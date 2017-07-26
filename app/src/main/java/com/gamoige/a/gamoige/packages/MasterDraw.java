@@ -17,6 +17,6 @@ public class MasterDraw implements Package{
 
     @Override
     public void doit(ConnectionFragment fragment) {
-
+        ((MainActivity) fragment.getActivity()).getPlayScreen().actionPerformed(action);
     }
 }

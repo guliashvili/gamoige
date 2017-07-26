@@ -79,6 +79,8 @@ public class MainActivity  extends AppCompatActivity {
         playScreen.setActive(mode == Mode.PLAY_SCREEN);
     }
 
+    public PlayScreen getPlayScreen() { return playScreen; }
+
 /*extends AppCompatActivity implements RealTimeMultiplayer.ReliableMessageSentCallback, RealTimeMessageReceivedListener {
     private static MainActivity mainActivity;
     public static MainActivity getMainActivity(){return mainActivity;}
