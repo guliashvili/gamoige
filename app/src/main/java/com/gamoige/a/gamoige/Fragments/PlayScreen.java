@@ -18,7 +18,7 @@ import com.gamoige.a.gamoige.R;
  * Created by Donsky on 7/17/2017.
  */
 
-public class PlayScreen extends Fragment {
+public class PlayScreen extends Fragment implements CanvasListener{
     private enum State {
         UNDEFINED,
         DRAWER,
@@ -61,21 +61,30 @@ public class PlayScreen extends Fragment {
         return view;
     }
 
+    @Override
+    public void actionPerformed(Action action) {
+        canvasPreview.actionPerformed(action);
+    }
+
     private void setState(State state) {
-        if (state == State.UNDEFINED) {
-            drawerView.setVisibility(View.GONE);
-            previewView.setVisibility(View.VISIBLE);
-            drawButton.setVisibility(View.VISIBLE);
-        } else if (state == State.DRAWER) {
-            drawerView.setVisibility(View.VISIBLE);
-            previewView.setVisibility(View.GONE);
-            drawButton.setVisibility(View.GONE);
-        } else if (state == State.PREVIEW) {
-            drawerView.setVisibility(View.GONE);
-            previewView.setVisibility(View.VISIBLE);
-            drawButton.setVisibility(View.GONE);
+        if (this.state != state) {
+            if (state == State.UNDEFINED) {
+                drawerView.setVisibility(View.GONE);
+                previewView.setVisibility(View.VISIBLE);
+                drawButton.setVisibility(View.VISIBLE);
+                canvasPreview.reset();
+            } else if (state == State.DRAWER) {
+                drawerView.setVisibility(View.VISIBLE);
+                previewView.setVisibility(View.GONE);
+                drawButton.setVisibility(View.GONE);
+                canvasEditorFragment.clear();
+            } else if (state == State.PREVIEW) {
+                drawerView.setVisibility(View.GONE);
+                previewView.setVisibility(View.VISIBLE);
+                drawButton.setVisibility(View.GONE);
+            }
+            this.state = state;
         }
-        this.state = state;
     }
 
     public void reset() {

@@ -206,4 +206,9 @@ public class CanvasPreview extends View implements CanvasListener {
         ArrayList<Action> saved = (ArrayList<Action>) bundle.getSerializable(key(canvasName));
         if (saved != null) for(Action action : saved) addAction(action);
     }
+    public void reset(){
+        actions.clear();
+        clear();
+        invalidate();
+    }
 }

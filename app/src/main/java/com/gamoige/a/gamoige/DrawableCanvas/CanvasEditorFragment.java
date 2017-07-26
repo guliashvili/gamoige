@@ -115,4 +115,7 @@ public class CanvasEditorFragment extends Fragment {
         canvasView.addListener(listener);
         return this;
     }
+    public void clear() {
+        canvasView.reset();
+    }
 }
