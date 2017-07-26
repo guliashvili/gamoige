@@ -70,6 +70,7 @@ public class MainActivity  extends AppCompatActivity {
         homeScreen = (HomeScreen) fragmentManager.findFragmentById(R.id.home_screen_fragment);
         playScreen = (PlayScreen) fragmentManager.findFragmentById(R.id.play_screen_fragment);
         homeScreen.setConnectionFragment(connectionFragment);
+        playScreen.setConnectionFragment(connectionFragment);
     }
 
 

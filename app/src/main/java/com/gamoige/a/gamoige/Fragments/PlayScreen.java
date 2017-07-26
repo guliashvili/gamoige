@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
 
 /**
@@ -16,7 +17,7 @@ import com.gamoige.a.gamoige.R;
 
 public class PlayScreen extends Fragment {
     private View view;
-
+    private ConnectionFragment connectionFragment;
 
     @Nullable
     @Override
@@ -24,6 +25,10 @@ public class PlayScreen extends Fragment {
         view = inflater.inflate(R.layout.canvas_editor_fragment, container, false);
         view.setVisibility(View.GONE);
         return view;
+    }
+
+    public void setConnectionFragment(ConnectionFragment fragment) {
+        connectionFragment = fragment;
     }
 
 
