@@ -224,7 +224,7 @@ public class ConnectionFragment extends Fragment {
     }
 
     private void startGame() {
-
+/*
         Log.e("givorgi", "My id : " + Games.Players.getCurrentPlayerId(googleApiClient));
 
         for (Participant p : room.getParticipants()) {
@@ -234,6 +234,6 @@ public class ConnectionFragment extends Fragment {
 
 
             }
-        }
+        }*/
     }
 }
