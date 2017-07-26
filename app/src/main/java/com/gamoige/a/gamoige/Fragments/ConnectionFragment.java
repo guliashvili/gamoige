@@ -27,6 +27,11 @@ import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
@@ -190,14 +195,40 @@ public class ConnectionFragment extends Fragment {
         }
     }
 
+    private void send(Serializable a, boolean relaible, String participantId){
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
+        byte[] yourBytes;
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(a);
+            out.flush();
+            yourBytes = bos.toByteArray();
+        }catch (IOException e){
+            Log.e("givorgi", "send: ioex");
+            return;
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+
+                // ignore close exception
+            }
+        }
+
+        if(relaible)
+            Games.RealTimeMultiplayer.sendReliableMessage(googleApiClient, this, yourBytes, room.getRoomId(),participantId);
+        else
+            Games.RealTimeMultiplayer.sendUnreliableMessage(googleApiClient, yourBytes, room.getRoomId(),participantId);
+
+    }
 
     private void startGame() {
 
 
         for (Participant p : room.getParticipants()) {
             if (!Games.Players.getCurrentPlayerId(googleApiClient).equals(p.getParticipantId())) {
-                Games.RealTimeMultiplayer.sendReliableMessage(googleApiClient, relMsgSentCallBack, "hello".getBytes(), room.getRoomId(),
-                        p.getParticipantId());
+                send("hello", true, p.getParticipantId());
 
 
             }
