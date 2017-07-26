@@ -18,6 +18,6 @@ public class RelMsgSentCallBack implements RealTimeMultiplayer.ReliableMessageSe
 
     @Override
     public void onRealTimeMessageSent(int i, int i1, String s) {
-        Log.e("givorgi onRealTimeMessageSent", i + " " + i1 + " " + s);
+        Log.e("givorgi","onRealTimeMessageSent"+ i + " " + i1 + " " + s);
     }
 }
