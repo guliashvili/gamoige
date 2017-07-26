@@ -17,6 +17,7 @@ import com.gamoige.a.gamoige.Listeners.RealTimeMessageReceivedListeningThing;
 import com.gamoige.a.gamoige.Listeners.RelMsgSentCallBack;
 import com.gamoige.a.gamoige.Listeners.RoomStatusUpdateListeningThing;
 import com.gamoige.a.gamoige.Listeners.RoomUpdateListeningThing;
+import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -227,13 +228,6 @@ public class ConnectionFragment extends Fragment {
 
         Log.e("givorgi", "My id : " + Games.Players.getCurrentPlayerId(googleApiClient));
 
-        for (Participant p : room.getParticipants()) {
-            if (!Games.Players.getCurrentPlayerId(googleApiClient).equals(p.getParticipantId())) {
-                Log.e("givorgi", "Sending to : " + p.getParticipantId());
-                send("hello", true, p.getParticipantId());
-
-
-            }
-        }
+        ((MainActivity)getActivity()).set(MainActivity.Mode.PLAY_SCREEN);
     }
 }

@@ -3,6 +3,7 @@ package com.gamoige.a.gamoige.Listeners;
 import android.util.Log;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
+import com.gamoige.a.gamoige.packages.Package;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 
@@ -27,7 +28,7 @@ public class RealTimeMessageReceivedListeningThing implements RealTimeMessageRec
 
             ObjectInputStream is = new ObjectInputStream(in);
             Package p = (Package)is.readObject();
-            p.doit(this);
+            p.doit(connectionFragment);
         }catch (Exception e){
             Log.e("info", e.getMessage().toString());
             return;
