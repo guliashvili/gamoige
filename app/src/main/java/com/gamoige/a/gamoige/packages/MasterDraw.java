@@ -1,6 +1,7 @@
 package com.gamoige.a.gamoige.packages;
 
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
+import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 import com.gamoige.a.gamoige.MainActivity;
 
 /**
@@ -15,7 +16,7 @@ public class MasterDraw implements Package{
     }
 
     @Override
-    public void doit(MainActivity mainActivity) {
-
+    public void doit(ConnectionFragment fragment) {
+        
     }
 }

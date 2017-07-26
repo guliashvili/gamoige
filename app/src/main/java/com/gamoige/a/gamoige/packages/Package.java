@@ -1,5 +1,6 @@
 package com.gamoige.a.gamoige.packages;
 
+import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.PreviewActivity;
 
@@ -10,5 +11,5 @@ import java.io.Serializable;
  */
 
 public interface Package extends Serializable {
-    void doit(MainActivity mainActivity);
+    void doit(ConnectionFragment fragment);
 }
