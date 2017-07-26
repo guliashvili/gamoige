@@ -217,7 +217,7 @@ public class ConnectionFragment extends Fragment {
         }
 
         if(relaible)
-            Games.RealTimeMultiplayer.sendReliableMessage(googleApiClient, this, yourBytes, room.getRoomId(),participantId);
+            Games.RealTimeMultiplayer.sendReliableMessage(googleApiClient, relMsgSentCallBack, yourBytes, room.getRoomId(),participantId);
         else
             Games.RealTimeMultiplayer.sendUnreliableMessage(googleApiClient, yourBytes, room.getRoomId(),participantId);
 
