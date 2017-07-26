@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasEditorFragment;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
+import com.gamoige.a.gamoige.DrawableCanvas.CanvasPreview;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
 
@@ -28,6 +29,7 @@ public class PlayScreen extends Fragment {
     private View view, drawerView, previewView, drawButton;
     private ConnectionFragment connectionFragment;
     private CanvasEditorFragment canvasEditorFragment;
+    private CanvasPreview canvasPreview;
 
     @Nullable
     @Override
@@ -38,6 +40,7 @@ public class PlayScreen extends Fragment {
         previewView = view.findViewById(R.id.play_screen_fragment_preview);
         drawButton = previewView.findViewById(R.id.make_me_drawer);
         canvasEditorFragment = (CanvasEditorFragment) getFragmentManager().findFragmentById(R.id.canvas_editor_fragment);
+        canvasPreview = (CanvasPreview) previewView.findViewById(R.id.canvas_preview);
         reset();
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
