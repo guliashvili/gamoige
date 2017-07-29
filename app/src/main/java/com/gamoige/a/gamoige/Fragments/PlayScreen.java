@@ -16,6 +16,7 @@ import com.gamoige.a.gamoige.R;
 import com.gamoige.a.gamoige.packages.IAmDrawer;
 import com.gamoige.a.gamoige.packages.MasterDraw;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -23,7 +24,7 @@ import java.util.Random;
  */
 
 public class PlayScreen extends Fragment implements CanvasListener{
-    private enum State {
+    private enum State implements Serializable {
         UNDEFINED,
         DRAWER,
         PREVIEW
@@ -34,11 +35,11 @@ public class PlayScreen extends Fragment implements CanvasListener{
     private CanvasEditorFragment canvasEditorFragment;
     private CanvasPreview canvasPreview;
 
-    
+    private static final String STATE_KEY = "PLAY_SCREEN_STATE_KEY";
     @Override
     public void onSaveInstanceState(final Bundle bundle) {
         super.onSaveInstanceState(bundle);
-
+        bundle.putSerializable(STATE_KEY, state);
     }
 
 
@@ -52,7 +53,9 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawButton = previewView.findViewById(R.id.make_me_drawer);
         canvasEditorFragment = (CanvasEditorFragment) getChildFragmentManager().findFragmentById(R.id.canvas_editor_fragment);
         canvasPreview = (CanvasPreview) previewView.findViewById(R.id.canvas_preview);
-        reset();
+        if (savedInstanceState != null) state = (State) savedInstanceState.getSerializable(STATE_KEY);
+        else state = State.UNDEFINED;
+        setState(state);
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,11 +89,11 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 previewView.setVisibility(View.VISIBLE);
                 drawButton.setVisibility(View.VISIBLE);
                 canvasPreview.reset();
+                canvasEditorFragment.clear();
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);
                 drawButton.setVisibility(View.GONE);
-                canvasEditorFragment.clear();
             } else if (state == State.PREVIEW) {
                 drawerView.setVisibility(View.GONE);
                 previewView.setVisibility(View.VISIBLE);
