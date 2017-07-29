@@ -47,10 +47,12 @@ public class PlayScreen extends Fragment implements CanvasListener{
     private CanvasPreview canvasPreview;
 
     private static final String STATE_KEY = "PLAY_SCREEN_STATE_KEY";
+    private static final String PREVIEW_KEY = "PLAY_SCREEN_PREVIEW_KEY";
     @Override
     public void onSaveInstanceState(final Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putSerializable(STATE_KEY, state);
+        canvasPreview.save(bundle, PREVIEW_KEY);
     }
 
 
@@ -86,6 +88,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
         if (savedInstanceState != null)
             savedState = (State) savedInstanceState.getSerializable(STATE_KEY);
         else savedState = State.UNDEFINED;
+        if (savedState == State.PREVIEW) canvasPreview.restore(savedInstanceState, PREVIEW_KEY);
         setState(savedState);
         return view;
     }
