@@ -1,13 +1,21 @@
 package com.gamoige.a.gamoige.DrawableCanvas;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.gamoige.a.gamoige.R;
 
 /**
@@ -22,6 +30,8 @@ public class CanvasEditorFragment extends Fragment {
     private boolean drawMode;
     private int activeColor;
     private float currentSize;
+    private AlertDialog colorPicker = null;
+    private ViewGroup colorPickersParent;
 
     private static final int BACKGROUND_COLOR = Color.WHITE;
     private static final int MAX_PROGRESS = 1000;
@@ -109,6 +119,15 @@ public class CanvasEditorFragment extends Fragment {
                 showBrush();
             }
         });
+
+        initColorPicker();
+        view.findViewById(R.id.canvas_pallete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //colorPickersParent.setVisibility(View.VISIBLE);
+                colorPicker.show();
+            }
+        });
         return view;
     }
     public CanvasEditorFragment addListener(CanvasListener listener) {
@@ -117,5 +136,43 @@ public class CanvasEditorFragment extends Fragment {
     }
     public void clear() {
         canvasView.reset();
+    }
+
+
+
+    private void initColorPicker() {
+        if (colorPicker != null) return;
+
+        colorPicker = ColorPickerDialogBuilder
+                .with(getContext())
+                .setTitle("Choose color")
+                .initialColor(R.color.startPageActionsFontColor)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                        Log.e("onColorSelected", Integer.toString(selectedColor));
+                    }
+                })
+                .setPositiveButton("ok", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        Log.e("onPositiveButton", Integer.toString(selectedColor));
+                        colorPicker.hide();
+                        //colorPickersParrent.setVisibility(View.GONE);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.e("onNegativeButton", Integer.toString(which));
+                        colorPicker.hide();
+                        //colorPickersParrent.setVisibility(View.GONE);
+                    }
+                })
+                .build();
+
+        colorPicker.hide();
     }
 }

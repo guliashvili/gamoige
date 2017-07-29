@@ -22,6 +22,12 @@
             android:scaleX="-1"
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_menu_revert"/>
+        <ImageView
+            android:id="@+id/canvas_pallete"
+            android:layout_margin="@dimen/canvas_draw_tool_margin"
+            android:layout_width="@dimen/canvas_draw_tool_width"
+            android:layout_height="match_parent"
+            android:src="@drawable/pallete"/>
         <SeekBar
             android:id="@+id/canvas_editor_size_slider"
             android:layout_margin="@dimen/canvas_draw_tool_margin"
@@ -52,12 +58,6 @@
         android:layout_weight="1"
         android:background="@android:color/white"/>
 
-    <LinearLayout
-        android:id="@+id/color_pickers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
 
         <com.flask.colorpicker.ColorPickerView
             android:id="@+id/color_picker_view"
@@ -83,6 +83,5 @@
             android:layout_height="48dp"
             />
 
-    </LinearLayout>
 
 </LinearLayout>
