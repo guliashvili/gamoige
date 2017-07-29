@@ -27,9 +27,10 @@ public class PlayScreen extends Fragment implements CanvasListener{
     private enum State implements Serializable {
         UNDEFINED,
         DRAWER,
-        PREVIEW
+        PREVIEW,
+        NONE_STATE
     }
-    private State state = State.UNDEFINED;
+    private State state = State.NONE_STATE;
     private View view, drawerView, previewView, drawButton;
     private ConnectionFragment connectionFragment;
     private CanvasEditorFragment canvasEditorFragment;
