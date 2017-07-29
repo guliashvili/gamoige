@@ -1,61 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.gamoige.a.gamoige.Fragments.HomeScreen"
-    android:orientation="vertical"
-    android:background="@mipmap/start_page_background"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <Button
-        android:textColor="@color/startPageActionsFontColor"
-        android:textSize="@dimen/start_page_actions_font_size"
-        android:alpha="0.7"
-        android:layout_width="@dimen/start_page_actions_width"
-        android:layout_height="@dimen/start_page_actions_height"
-        android:background="@drawable/start_page_buttons_shape"
-        android:shadowColor="@color/startPageActionsShadowColor"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:layout_marginBottom="@dimen/start_page_actions_margin_bottom"
-        android:shadowRadius="5"
-        android:text="@string/leaderboard_btn"
-        android:id="@+id/leaderBoardBtn"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/start_page_background"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/main_background_image" />
 
-    <Button
-        android:textColor="@color/startPageActionsFontColor"
-        android:textSize="@dimen/start_page_actions_font_size"
-        android:alpha="0.7"
-        android:layout_width="@dimen/start_page_actions_width"
-        android:layout_height="@dimen/start_page_actions_height"
-        android:background="@drawable/start_page_buttons_shape"
-        android:shadowColor="@color/startPageActionsShadowColor"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:layout_marginBottom="@dimen/start_page_actions_margin_bottom"
-        android:shadowRadius="5"
-        android:text="@string/quick_game_btn"
-        android:id="@+id/quickGameBtn"/>
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.gamoige.a.gamoige.Fragments.HomeScreen"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:textColor="@color/startPageActionsFontColor"
-        android:textSize="@dimen/start_page_actions_font_size"
-        android:alpha="0.7"
-        android:layout_width="@dimen/start_page_actions_width"
-        android:layout_height="@dimen/start_page_actions_height"
-        android:background="@drawable/start_page_buttons_shape"
-        android:shadowColor="@color/startPageActionsShadowColor"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="@string/select_friends_game_btn"
-        android:id="@+id/selectFriendBtn"/>
+        <Button
+            android:textColor="@color/startPageActionsFontColor"
+            android:textSize="@dimen/start_page_actions_font_size"
+            android:alpha="0.7"
+            android:layout_width="@dimen/start_page_actions_width"
+            android:layout_height="@dimen/start_page_actions_height"
+            android:background="@drawable/start_page_buttons_shape"
+            android:shadowColor="@color/startPageActionsShadowColor"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:layout_marginBottom="@dimen/start_page_actions_margin_bottom"
+            android:shadowRadius="5"
+            android:text="@string/leaderboard_btn"
+            android:id="@+id/leaderBoardBtn"/>
 
-    <!-- <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="startdonsk"
-        android:onClick="startdonsk"/> -->
+        <Button
+            android:textColor="@color/startPageActionsFontColor"
+            android:textSize="@dimen/start_page_actions_font_size"
+            android:alpha="0.7"
+            android:layout_width="@dimen/start_page_actions_width"
+            android:layout_height="@dimen/start_page_actions_height"
+            android:background="@drawable/start_page_buttons_shape"
+            android:shadowColor="@color/startPageActionsShadowColor"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:layout_marginBottom="@dimen/start_page_actions_margin_bottom"
+            android:shadowRadius="5"
+            android:text="@string/quick_game_btn"
+            android:id="@+id/quickGameBtn"/>
 
-</LinearLayout>
+        <Button
+            android:textColor="@color/startPageActionsFontColor"
+            android:textSize="@dimen/start_page_actions_font_size"
+            android:alpha="0.7"
+            android:layout_width="@dimen/start_page_actions_width"
+            android:layout_height="@dimen/start_page_actions_height"
+            android:background="@drawable/start_page_buttons_shape"
+            android:shadowColor="@color/startPageActionsShadowColor"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/select_friends_game_btn"
+            android:id="@+id/selectFriendBtn"/>
+
+        <!-- <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="startdonsk"
+            android:onClick="startdonsk"/> -->
+
+    </LinearLayout>
+</FrameLayout>
