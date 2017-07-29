@@ -72,9 +72,11 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 }
             }
         });
-        if (savedInstanceState != null) state = (State) savedInstanceState.getSerializable(STATE_KEY);
-        else state = State.UNDEFINED;
-        setState(state);
+        State savedState;
+        if (savedInstanceState != null)
+            savedState = (State) savedInstanceState.getSerializable(STATE_KEY);
+        else savedState = State.UNDEFINED;
+        setState(savedState);
         return view;
     }
 
