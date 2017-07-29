@@ -65,6 +65,7 @@ public class ConnectionFragment extends Fragment {
     private Room room;
     private boolean isPlayingValue;
     private int power;
+    private String leader;
 
     public boolean isPlaying() {
         return isPlayingValue;
@@ -248,5 +249,13 @@ public class ConnectionFragment extends Fragment {
 
     public void setPower(int power) {
         this.power = power;
+    }
+
+    public void setLeader(String leader) {
+        this.leader = leader;
+    }
+
+    public String getLeader() {
+        return leader;
     }
 }

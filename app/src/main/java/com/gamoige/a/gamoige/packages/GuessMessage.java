@@ -9,6 +9,10 @@ import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 public class GuessMessage implements Package {
     private String msg;
 
+    public GuessMessage(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public void doit(ConnectionFragment fragment, String senderId) {
 

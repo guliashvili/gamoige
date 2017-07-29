@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasEditorFragment;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasPreview;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
+import com.gamoige.a.gamoige.packages.GuessMessage;
 import com.gamoige.a.gamoige.packages.IAmDrawer;
 import com.gamoige.a.gamoige.packages.MasterDraw;
 
@@ -24,16 +26,6 @@ import java.util.Random;
  */
 
 public class PlayScreen extends Fragment implements CanvasListener{
-    private String leader;
-
-    public void setLeader(String leader) {
-        this.leader = leader;
-    }
-
-    public String getLeader() {
-        return leader;
-    }
-
     private enum State implements Serializable {
         UNDEFINED,
         DRAWER,
@@ -58,7 +50,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.play_screen_fragment, container, false);
         view.setVisibility(View.GONE);
         drawerView = view.findViewById(R.id.play_screen_fragment_drawer);
@@ -84,6 +76,28 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 }
             }
         });
+        previewView.findViewById(R.id.submit_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectionFragment.send(new GuessMessage(
+                        ((TextView)previewView.findViewById(R.id.input_layout_guessed_word)).getText().toString()),
+                        true, connectionFragment.getLeader());
+
+            }
+        });
+        drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        drawerView.findViewById(R.id.submitted_accept).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         State savedState;
         if (savedInstanceState != null)
             savedState = (State) savedInstanceState.getSerializable(STATE_KEY);

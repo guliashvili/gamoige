@@ -18,7 +18,7 @@ public class IAmDrawer implements Package {
     public void doit(ConnectionFragment fragment, String senderId) {
         if(fragment.getPower() < power) {
             ((MainActivity) fragment.getActivity()).getPlayScreen().setMode(false);
-            ((MainActivity) fragment.getActivity()).getPlayScreen().setLeader(senderId);
+            fragment.setLeader(senderId);
 
         }
     }
