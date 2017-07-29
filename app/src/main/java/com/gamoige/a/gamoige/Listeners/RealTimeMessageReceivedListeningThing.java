@@ -28,7 +28,7 @@ public class RealTimeMessageReceivedListeningThing implements RealTimeMessageRec
 
             ObjectInputStream is = new ObjectInputStream(in);
             Package p = (Package)is.readObject();
-            p.doit(connectionFragment);
+            p.doit(connectionFragment,  realTimeMessage.getSenderParticipantId());
         }catch (Exception e){
             Log.e("info", e.getMessage().toString());
             return;

@@ -24,6 +24,16 @@ import java.util.Random;
  */
 
 public class PlayScreen extends Fragment implements CanvasListener{
+    private String leader;
+
+    public void setLeader(String leader) {
+        this.leader = leader;
+    }
+
+    public String getLeader() {
+        return leader;
+    }
+
     private enum State implements Serializable {
         UNDEFINED,
         DRAWER,

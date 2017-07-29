@@ -11,5 +11,5 @@ import java.io.Serializable;
  */
 
 public interface Package extends Serializable {
-    void doit(ConnectionFragment fragment);
+    void doit(ConnectionFragment fragment, String senderId);
 }
