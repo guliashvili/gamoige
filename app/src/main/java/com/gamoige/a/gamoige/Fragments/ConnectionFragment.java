@@ -42,6 +42,8 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class ConnectionFragment extends Fragment {
+    public ConnectionFragment connectionFragment;
+
     private int onCreteId = 0;
     private int onCreateViewId = 0;
     private GoogleApiClient googleApiClient;
@@ -62,6 +64,7 @@ public class ConnectionFragment extends Fragment {
 
     private Room room;
     private boolean isPlayingValue;
+    private int power;
 
     public boolean isPlaying() {
         return isPlayingValue;
@@ -234,7 +237,16 @@ public class ConnectionFragment extends Fragment {
     private void startGame() {
 
         Log.e("givorgi", "My id : " + Games.Players.getCurrentPlayerId(googleApiClient));
+        power = Integer.MIN_VALUE;
 
         ((MainActivity)getActivity()).set(MainActivity.Mode.PLAY_SCREEN);
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
     }
 }
