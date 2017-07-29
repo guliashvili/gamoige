@@ -32,6 +32,14 @@ public class PlayScreen extends Fragment implements CanvasListener{
     private CanvasEditorFragment canvasEditorFragment;
     private CanvasPreview canvasPreview;
 
+    
+    @Override
+    public void onSaveInstanceState(final Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
