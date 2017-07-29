@@ -50,15 +50,25 @@ import java.util.List;
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity  extends AppCompatActivity {
-    public enum Mode {
+    public enum Mode implements Serializable{
         HOME_SCREEN,
         PLAY_SCREEN
     }
 
+    private static final String MAIN_ACTIVITY_SAVED_MODE = "MAIN_ACTIVITY_SAVED_MODE";
+
     private ConnectionFragment connectionFragment;
     private HomeScreen homeScreen;
     private PlayScreen playScreen;
+    private Mode activeMode;
 
+
+    @Override
+    public void onSaveInstanceState(final Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        if (bundle == null) return;
+        bundle.putSerializable(MAIN_ACTIVITY_SAVED_MODE, activeMode);
+    }
 
 
     @Override
@@ -71,6 +81,10 @@ public class MainActivity  extends AppCompatActivity {
         playScreen = (PlayScreen) fragmentManager.findFragmentById(R.id.play_screen_fragment);
         homeScreen.setConnectionFragment(connectionFragment);
         playScreen.setConnectionFragment(connectionFragment);
+        if (savedInstanceState != null)
+            activeMode = (Mode) savedInstanceState.getSerializable(MAIN_ACTIVITY_SAVED_MODE);
+        else activeMode = Mode.HOME_SCREEN;
+        setVisual(activeMode);
     }
 
 
@@ -80,8 +94,10 @@ public class MainActivity  extends AppCompatActivity {
     }
 
     public void set(Mode mode) {
+        setVisual(mode);
         homeScreen.setActive(mode == Mode.HOME_SCREEN);
         playScreen.setActive(mode == Mode.PLAY_SCREEN);
+        activeMode = mode;
     }
 
     public PlayScreen getPlayScreen() { return playScreen; }
