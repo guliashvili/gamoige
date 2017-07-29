@@ -1,0 +1,5 @@
+No internet connection case handling
+Sense on action buttons click
+Resource management
+Butterknife
+Pallete
