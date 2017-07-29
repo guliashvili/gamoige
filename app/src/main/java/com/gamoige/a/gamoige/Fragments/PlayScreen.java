@@ -13,7 +13,10 @@ import com.gamoige.a.gamoige.DrawableCanvas.CanvasListener;
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasPreview;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
+import com.gamoige.a.gamoige.packages.IAmDrawer;
 import com.gamoige.a.gamoige.packages.MasterDraw;
+
+import java.util.Random;
 
 /**
  * Created by Donsky on 7/17/2017.
@@ -25,7 +28,6 @@ public class PlayScreen extends Fragment implements CanvasListener{
         DRAWER,
         PREVIEW
     }
-
     private State state = State.UNDEFINED;
     private View view, drawerView, previewView, drawButton;
     private ConnectionFragment connectionFragment;
@@ -55,6 +57,8 @@ public class PlayScreen extends Fragment implements CanvasListener{
             @Override
             public void onClick(View v) {
                 setMode(true);
+                connectionFragment.setPower(new Random().nextInt());
+                connectionFragment.sendAll(new IAmDrawer(connectionFragment.getPower()), true);
             }
         });
         canvasEditorFragment.addListener(new CanvasListener() {
