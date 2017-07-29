@@ -111,8 +111,12 @@ public class HomeScreen extends Fragment {
         }
     }
 
-    public void setActive(boolean active){
+    public void setActiveVisual(boolean active){
         view.setVisibility(active ? View.VISIBLE : View.GONE);
+    }
+
+    public void setActive(boolean active){
+        setActiveVisual(active);
     }
 
     @Override

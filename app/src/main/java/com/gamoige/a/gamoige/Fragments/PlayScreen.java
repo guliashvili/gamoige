@@ -101,7 +101,11 @@ public class PlayScreen extends Fragment implements CanvasListener{
     }
 
 
-    public void setActive(boolean active){
+    public void setActiveVisual(boolean active){
         view.setVisibility(active ? View.VISIBLE : View.GONE);
+    }
+
+    public void setActive(boolean active){
+        setActiveVisual(active);
     }
 }

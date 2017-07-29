@@ -74,6 +74,11 @@ public class MainActivity  extends AppCompatActivity {
     }
 
 
+    private void setVisual(Mode mode) {
+        homeScreen.setActiveVisual(mode == Mode.HOME_SCREEN);
+        playScreen.setActiveVisual(mode == Mode.PLAY_SCREEN);
+    }
+
     public void set(Mode mode) {
         homeScreen.setActive(mode == Mode.HOME_SCREEN);
         playScreen.setActive(mode == Mode.PLAY_SCREEN);
