@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/start_page_background"
+        android:src="@drawable/start_page_background"
         android:scaleType="centerCrop"
         android:contentDescription="@string/main_background_image" />
 
