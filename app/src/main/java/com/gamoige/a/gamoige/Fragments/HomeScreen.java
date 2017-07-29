@@ -1,15 +1,21 @@
 package com.gamoige.a.gamoige.Fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.gamoige.a.gamoige.PreviewActivity;
 import com.gamoige.a.gamoige.R;
 import com.google.android.gms.games.Games;
@@ -25,12 +31,15 @@ public class HomeScreen extends Fragment {
     private AVLoadingIndicatorView avi;
     private View view;
     private boolean loading;
+    private AlertDialog colorPicker = null;
+    private ViewGroup colorPickersParrent;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_main, container, false);
         avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        colorPickersParrent = (ViewGroup) view.findViewById(R.id.color_pickers);
         loading = false;
         view.findViewById(R.id.leaderBoardBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +65,42 @@ public class HomeScreen extends Fragment {
                 loading = true;
             }
         });
+
+        initColorPicker();
+
         return view;
+    }
+
+    private void initColorPicker() {
+        if (colorPicker != null) return;
+
+        colorPicker = ColorPickerDialogBuilder
+                .with(getContext())
+                .setTitle("Choose color")
+                .initialColor(R.color.startPageActionsFontColor)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                        Log.e("onColorSelected", Integer.toString(selectedColor));
+                    }
+                })
+                .setPositiveButton("ok", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        Log.e("onPositiveButton", Integer.toString(selectedColor));
+                        colorPickersParrent.setVisibility(View.GONE);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.e("onNegativeButton", Integer.toString(which));
+                        colorPickersParrent.setVisibility(View.GONE);
+                    }
+                })
+                .build();
     }
 
     public void setConnectionFragment(ConnectionFragment fragment){
