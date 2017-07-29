@@ -56,7 +56,7 @@ public class CanvasPreview extends View implements CanvasListener {
 
     private void clear() {
         if (bitmap == null)
-            bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(Math.max(getWidth(), 1), Math.max(getHeight(), 1), Bitmap.Config.ARGB_8888);
         else bitmap.eraseColor(0);
         drawn = 0;
     }
