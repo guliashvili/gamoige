@@ -54,9 +54,6 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawButton = previewView.findViewById(R.id.make_me_drawer);
         canvasEditorFragment = (CanvasEditorFragment) getChildFragmentManager().findFragmentById(R.id.canvas_editor_fragment);
         canvasPreview = (CanvasPreview) previewView.findViewById(R.id.canvas_preview);
-        if (savedInstanceState != null) state = (State) savedInstanceState.getSerializable(STATE_KEY);
-        else state = State.UNDEFINED;
-        setState(state);
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +72,9 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 }
             }
         });
+        if (savedInstanceState != null) state = (State) savedInstanceState.getSerializable(STATE_KEY);
+        else state = State.UNDEFINED;
+        setState(state);
         return view;
     }
 
