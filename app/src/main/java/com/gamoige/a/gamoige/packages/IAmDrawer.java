@@ -15,8 +15,11 @@ public class IAmDrawer implements Package {
     }
 
     @Override
-    public void doit(ConnectionFragment fragment) {
-        if(fragment.getPower() < power)
-            ((MainActivity)fragment.getActivity()).getPlayScreen().setMode(false);
+    public void doit(ConnectionFragment fragment, String senderId) {
+        if(fragment.getPower() < power) {
+            ((MainActivity) fragment.getActivity()).getPlayScreen().setMode(false);
+            ((MainActivity) fragment.getActivity()).getPlayScreen().setLeader(senderId);
+
+        }
     }
 }
