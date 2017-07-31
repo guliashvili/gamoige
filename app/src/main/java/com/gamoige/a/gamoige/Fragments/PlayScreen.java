@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gamoige.a.gamoige.DrawableCanvas.CanvasEditorFragment;
@@ -94,10 +95,9 @@ public class PlayScreen extends Fragment implements CanvasListener{
         previewView.findViewById(R.id.submit_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectionFragment.send(new GuessMessage(
-                        ((TextInputLayout)previewView.findViewById(R.id.input_layout_guessed_word)).getEditText().getText().toString()),
-                        true, connectionFragment.getLeader());
-
+                EditText editText = ((TextInputLayout)previewView.findViewById(R.id.input_layout_guessed_word)).getEditText();
+                connectionFragment.send(new GuessMessage(editText.getText().toString()), true, connectionFragment.getLeader());
+                editText.setText("");
             }
         });
         if(savedInstanceState == null)
