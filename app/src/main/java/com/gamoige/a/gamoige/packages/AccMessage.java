@@ -1,6 +1,7 @@
 package com.gamoige.a.gamoige.packages;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
+import com.gamoige.a.gamoige.MainActivity;
 
 /**
  * Created by a on 7/29/17.
@@ -8,13 +9,14 @@ import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 
 public class AccMessage implements Package{
     private String winner;
-
-    public AccMessage(String winner) {
+    private String msg;
+    public AccMessage(String winner, String msg) {
         this.winner = winner;
+        this.msg = msg;
     }
 
     @Override
     public void doit(ConnectionFragment fragment, String senderId) {
-        
     }
+
 }

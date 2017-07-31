@@ -19,6 +19,7 @@ import com.gamoige.a.gamoige.Listeners.RoomStatusUpdateListeningThing;
 import com.gamoige.a.gamoige.Listeners.RoomUpdateListeningThing;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
+import com.gamoige.a.gamoige.packages.AccMessage;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
@@ -257,5 +258,9 @@ public class ConnectionFragment extends Fragment {
 
     public String getLeader() {
         return leader;
+    }
+
+    public void won(String sender, String msg) {
+        sendAll(new AccMessage(sender, msg), true);
     }
 }

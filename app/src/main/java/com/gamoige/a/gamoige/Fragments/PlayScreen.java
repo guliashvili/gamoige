@@ -17,8 +17,11 @@ import com.gamoige.a.gamoige.R;
 import com.gamoige.a.gamoige.packages.GuessMessage;
 import com.gamoige.a.gamoige.packages.IAmDrawer;
 import com.gamoige.a.gamoige.packages.MasterDraw;
+import com.google.android.gms.vision.text.Text;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -40,13 +43,24 @@ public class PlayScreen extends Fragment implements CanvasListener{
 
     private static final String STATE_KEY = "PLAY_SCREEN_STATE_KEY";
     private static final String PREVIEW_KEY = "PLAY_SCREEN_PREVIEW_KEY";
+    private static final String QUEUE_KEY = "QUEUE_KEY";
+
     @Override
     public void onSaveInstanceState(final Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putSerializable(STATE_KEY, state);
+        bundle.putSerializable(PREVIEW_KEY, queue);
         canvasPreview.save(bundle, PREVIEW_KEY);
     }
+    private ArrayDeque<GuessMessage> queue;
 
+    public void addElementQueue(GuessMessage guessMessage){
+        queue.add(guessMessage);
+
+        if(queue.size() == 1){
+            ((TextView)previewView.findViewById(R.id.submitted_word)).setText(guessMessage.getMsg());
+        }
+    }
 
     @Nullable
     @Override
@@ -85,16 +99,26 @@ public class PlayScreen extends Fragment implements CanvasListener{
 
             }
         });
+        if(savedInstanceState == null)
+            queue = new ArrayDeque<>();
+        else
+            queue = (ArrayDeque<GuessMessage>)savedInstanceState.getSerializable(QUEUE_KEY);
+
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                queue.peek();
+                if(queue.size() > 0){
+                    ((TextView)previewView.findViewById(R.id.submitted_word)).setText(queue.poll().getMsg());
+                }
             }
         });
+
         drawerView.findViewById(R.id.submitted_accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                connectionFragment.won(queue.poll().getSender(),queue.poll().getMsg());
+                Log.e("givorgi", "won: " + queue.poll().getSender() + " " + queue.poll().getMsg());
             }
         });
 
