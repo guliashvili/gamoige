@@ -53,7 +53,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
     public void onSaveInstanceState(final Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putSerializable(STATE_KEY, state);
-        bundle.putSerializable(PREVIEW_KEY, queue);
+        bundle.putSerializable(QUEUE_KEY, queue);
         canvasPreview.save(bundle, PREVIEW_KEY);
     }
     private ArrayDeque<GuessMessage> queue;
@@ -117,26 +117,27 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(queue.size() > 0) {
+                    connectionFragment.send(new YleMessage(queue.peek().getMsg()), true, queue.peek().getSender());
+                    queue.pop();
+                    String s = "";
 
-                connectionFragment.send(new YleMessage(queue.peek().getMsg()), true, queue.peek().getSender());
-                queue.pop();
-                String s = "";
+                    if (queue.size() > 0)
+                        s = queue.peek().getMsg();
 
-                if(queue.size() > 0)
-                    s = queue.peek().getMsg();
-
-                ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(s);
-
+                    ((TextView) drawerView.findViewById(R.id.submitted_word)).setText(s);
+                }
             }
         });
 
         drawerView.findViewById(R.id.submitted_accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GuessMessage guessMessage = queue.poll();
-                connectionFragment.won(guessMessage.getSender(),guessMessage.getMsg());
-                Log.e("givorgi", "won: " + guessMessage.getSender() + " " + guessMessage.getMsg());
-
+                if(queue.size() > 0) {
+                    GuessMessage guessMessage = queue.poll();
+                    connectionFragment.won(guessMessage.getSender(), guessMessage.getMsg());
+                    Log.e("givorgi", "won: " + guessMessage.getSender() + " " + guessMessage.getMsg());
+                }
             }
         });
 
