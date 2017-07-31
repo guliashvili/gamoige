@@ -101,9 +101,10 @@ public class PlayScreen extends Fragment implements CanvasListener{
         });
         if(savedInstanceState == null)
             queue = new ArrayDeque<>();
-        else
-            queue = (ArrayDeque<GuessMessage>)savedInstanceState.getSerializable(QUEUE_KEY);
-
+        else {
+            queue = (ArrayDeque<GuessMessage>) savedInstanceState.getSerializable(QUEUE_KEY);
+            if(queue == null) queue = new ArrayDeque<>();
+        }
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +120,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
             public void onClick(View v) {
                 connectionFragment.won(queue.poll().getSender(),queue.poll().getMsg());
                 Log.e("givorgi", "won: " + queue.poll().getSender() + " " + queue.poll().getMsg());
+                
             }
         });
 

@@ -2,6 +2,8 @@ package com.gamoige.a.gamoige.packages;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 import com.gamoige.a.gamoige.MainActivity;
+import com.gamoige.a.gamoige.R;
+import com.google.android.gms.games.Games;
 
 /**
  * Created by a on 7/29/17.
@@ -17,6 +19,10 @@ public class AccMessage implements Package{
 
     @Override
     public void doit(ConnectionFragment fragment, String senderId) {
+        if(Games.Players.getCurrentPlayerId(fragment.getConnection()).equals(winner)){
+            Games.Leaderboards.submitScore(fragment.getConnection(), " " + R.string.LEADERBOARD_ID, 4000);
+
+        }
     }
 
 }
