@@ -1,5 +1,6 @@
 package com.gamoige.a.gamoige.Fragments;
 
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -94,7 +95,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
             @Override
             public void onClick(View v) {
                 connectionFragment.send(new GuessMessage(
-                        ((TextView)previewView.findViewById(R.id.input_layout_guessed_word)).getText().toString()),
+                        ((TextInputLayout)previewView.findViewById(R.id.input_layout_guessed_word)).getEditText().getText().toString()),
                         true, connectionFragment.getLeader());
 
             }
@@ -120,7 +121,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
             public void onClick(View v) {
                 connectionFragment.won(queue.poll().getSender(),queue.poll().getMsg());
                 Log.e("givorgi", "won: " + queue.poll().getSender() + " " + queue.poll().getMsg());
-                
+
             }
         });
 
