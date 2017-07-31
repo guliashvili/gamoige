@@ -4,6 +4,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,9 +97,11 @@ public class PlayScreen extends Fragment implements CanvasListener{
         previewView.findViewById(R.id.submit_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText = ((TextInputLayout)previewView.findViewById(R.id.input_layout_guessed_word)).getEditText();
-                connectionFragment.send(new GuessMessage(editText.getText().toString()), true, connectionFragment.getLeader());
-                editText.setText("");
+                if(connectionFragment.getLeader() != null) {
+                    EditText editText = ((TextInputLayout) previewView.findViewById(R.id.input_layout_guessed_word)).getEditText();
+                    connectionFragment.send(new GuessMessage(editText.getText().toString()), true, connectionFragment.getLeader());
+                    editText.setText("");
+                }
             }
         });
         if(savedInstanceState == null)
@@ -106,6 +109,9 @@ public class PlayScreen extends Fragment implements CanvasListener{
         else {
             queue = (ArrayDeque<GuessMessage>) savedInstanceState.getSerializable(QUEUE_KEY);
             if(queue == null) queue = new ArrayDeque<>();
+            else{
+                ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(queue.peek().getMsg());
+            }
         }
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
             @Override
