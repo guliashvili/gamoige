@@ -146,13 +146,15 @@ public class CanvasEditorFragment extends Fragment {
         colorPicker = ColorPickerDialogBuilder
                 .with(getContext())
                 .setTitle("Choose color")
-                .initialColor(R.color.startPageActionsFontColor)
+                .initialColor(/**/ activeColor /*R.color.startPageActionsFontColor*/)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(new OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int selectedColor) {
                         Log.e("onColorSelected", Integer.toString(selectedColor));
+                        activeColor = selectedColor;
+                        if (drawMode) canvasView.setColor(activeColor);
                     }
                 })
                 .setPositiveButton("ok", new ColorPickerClickListener() {
