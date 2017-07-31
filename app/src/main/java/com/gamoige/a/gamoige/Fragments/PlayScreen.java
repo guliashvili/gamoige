@@ -126,7 +126,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawerView.findViewById(R.id.submitted_accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GuessMessage guessMessage = queue.peek();
+                GuessMessage guessMessage = queue.poll();
                 connectionFragment.won(guessMessage.getSender(),guessMessage.getMsg());
                 Log.e("givorgi", "won: " + guessMessage.getSender() + " " + guessMessage.getMsg());
 
