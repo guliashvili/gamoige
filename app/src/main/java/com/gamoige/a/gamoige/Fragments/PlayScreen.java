@@ -110,7 +110,8 @@ public class PlayScreen extends Fragment implements CanvasListener{
             queue = (ArrayDeque<GuessMessage>) savedInstanceState.getSerializable(QUEUE_KEY);
             if(queue == null) queue = new ArrayDeque<>();
             else{
-                ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(queue.peek().getMsg());
+                if(queue.size()>0)
+                    ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(queue.peek().getMsg());
             }
         }
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
