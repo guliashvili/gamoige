@@ -19,6 +19,7 @@ import com.gamoige.a.gamoige.R;
 import com.gamoige.a.gamoige.packages.GuessMessage;
 import com.gamoige.a.gamoige.packages.IAmDrawer;
 import com.gamoige.a.gamoige.packages.MasterDraw;
+import com.gamoige.a.gamoige.packages.YleMessage;
 import com.google.android.gms.vision.text.Text;
 
 import java.io.Serializable;
@@ -109,6 +110,8 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                connectionFragment.send(new YleMessage(queue.peek().getMsg()), true, queue.peek().getSender());
                 queue.pop();
                 String s = "";
 
