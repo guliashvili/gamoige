@@ -19,62 +19,76 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <Button
-            android:textColor="@color/startPageActionsFontColor"
-            android:textSize="@dimen/start_page_actions_font_size"
-            android:alpha="0.7"
-            android:layout_width="@dimen/start_page_actions_width"
-            android:layout_height="@dimen/start_page_actions_height"
-            android:background="@drawable/start_page_buttons_shape"
-            android:shadowColor="@color/startPageActionsShadowColor"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:layout_marginBottom="@dimen/start_page_actions_margin_bottom"
-            android:shadowRadius="5"
-            android:text="@string/leaderboard_btn"
-            android:id="@+id/leaderBoardBtn"/>
-
-        <Button
-            android:textColor="@color/startPageActionsFontColor"
-            android:textSize="@dimen/start_page_actions_font_size"
-            android:alpha="0.7"
-            android:layout_width="@dimen/start_page_actions_width"
-            android:layout_height="@dimen/start_page_actions_height"
-            android:background="@drawable/start_page_buttons_shape"
-            android:shadowColor="@color/startPageActionsShadowColor"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:layout_marginBottom="@dimen/start_page_actions_margin_bottom"
-            android:shadowRadius="5"
-            android:text="@string/quick_game_btn"
-            android:id="@+id/quickGameBtn"/>
-
-        <Button
-            android:textColor="@color/startPageActionsFontColor"
-            android:textSize="@dimen/start_page_actions_font_size"
-            android:alpha="0.7"
-            android:layout_width="@dimen/start_page_actions_width"
-            android:layout_height="@dimen/start_page_actions_height"
-            android:background="@drawable/start_page_buttons_shape"
-            android:shadowColor="@color/startPageActionsShadowColor"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="@string/select_friends_game_btn"
-            android:id="@+id/selectFriendBtn"/>
-
-        <!-- <Button
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/leaderBoardBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startdonsk"
-            android:onClick="startdonsk"/> -->
+            app:mrl_rippleDuration="100"
+            app:mrl_rippleAlpha="50"
+            android:layout_marginBottom="@dimen/start_page_actions_margin_bottom">
+
+            <Button
+                android:textColor="@color/startPageActionsFontColor"
+                android:textSize="@dimen/start_page_actions_font_size"
+                android:alpha="0.7"
+                android:layout_width="@dimen/start_page_actions_width"
+                android:layout_height="@dimen/start_page_actions_height"
+                android:background="@drawable/start_page_buttons_shape"
+                android:shadowColor="@color/startPageActionsShadowColor"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="@string/leaderboard_btn"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/quickGameBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleDuration="100"
+            app:mrl_rippleAlpha="50"
+            android:layout_marginBottom="@dimen/start_page_actions_margin_bottom">
+
+            <Button
+                android:textColor="@color/startPageActionsFontColor"
+                android:textSize="@dimen/start_page_actions_font_size"
+                android:alpha="0.7"
+                android:layout_width="@dimen/start_page_actions_width"
+                android:layout_height="@dimen/start_page_actions_height"
+                android:background="@drawable/start_page_buttons_shape"
+                android:shadowColor="@color/startPageActionsShadowColor"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="@string/quick_game_btn"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/selectFriendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleDuration="100">
+
+            <Button
+                android:textColor="@color/startPageActionsFontColor"
+                android:textSize="@dimen/start_page_actions_font_size"
+                android:alpha="0.7"
+                android:layout_width="@dimen/start_page_actions_width"
+                android:layout_height="@dimen/start_page_actions_height"
+                android:background="@drawable/start_page_buttons_shape"
+                android:shadowColor="@color/startPageActionsShadowColor"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="@string/select_friends_game_btn"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         style="@style/AVLoadingIndicatorView"
         android:visibility="gone"
         app:indicatorName="BallPulseIndicator"

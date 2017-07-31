@@ -1,22 +1,15 @@
 package com.gamoige.a.gamoige.Fragments;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-import com.gamoige.a.gamoige.PreviewActivity;
 import com.gamoige.a.gamoige.R;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
