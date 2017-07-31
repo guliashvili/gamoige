@@ -59,7 +59,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
         queue.add(guessMessage);
 
         if(queue.size() == 1){
-            ((TextView)previewView.findViewById(R.id.submitted_word)).setText(guessMessage.getMsg());
+            ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(guessMessage.getMsg());
         }
     }
 
@@ -111,7 +111,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
             public void onClick(View v) {
                 queue.peek();
                 if(queue.size() > 0){
-                    ((TextView)previewView.findViewById(R.id.submitted_word)).setText(queue.poll().getMsg());
+                    ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(queue.poll().getMsg());
                 }
             }
         });
