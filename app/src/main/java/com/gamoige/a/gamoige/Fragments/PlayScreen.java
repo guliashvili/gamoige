@@ -109,7 +109,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawerView.findViewById(R.id.submitted_reject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                queue.peek();
+                queue.pop();
                 if(queue.size() > 0){
                     ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(queue.poll().getMsg());
                 }
@@ -119,8 +119,9 @@ public class PlayScreen extends Fragment implements CanvasListener{
         drawerView.findViewById(R.id.submitted_accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectionFragment.won(queue.poll().getSender(),queue.poll().getMsg());
-                Log.e("givorgi", "won: " + queue.poll().getSender() + " " + queue.poll().getMsg());
+                GuessMessage guessMessage = queue.peek();
+                connectionFragment.won(guessMessage.getSender(),guessMessage.getMsg());
+                Log.e("givorgi", "won: " + guessMessage.getSender() + " " + guessMessage.getMsg());
 
             }
         });
