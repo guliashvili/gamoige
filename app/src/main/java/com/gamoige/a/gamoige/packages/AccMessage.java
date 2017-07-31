@@ -21,7 +21,8 @@ public class AccMessage implements Package{
 
     @Override
     public void doit(ConnectionFragment fragment, String senderId) {
-        if(Games.Players.getCurrentPlayerId(fragment.getConnection()).equals(winner)){
+        String myId = fragment.getRoom().getParticipantId(Games.Players.getCurrentPlayer(fragment.getConnection()).getPlayerId());
+        if(myId.equals(winner)){
             Games.Leaderboards.submitScore(fragment.getConnection(), " " + R.string.LEADERBOARD_ID, 4000);
             Log.e("givorgi", "yeeeeeei");
         }

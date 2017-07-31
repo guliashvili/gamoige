@@ -110,9 +110,13 @@ public class PlayScreen extends Fragment implements CanvasListener{
             @Override
             public void onClick(View v) {
                 queue.pop();
-                if(queue.size() > 0){
-                    ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(queue.peek().getMsg());
-                }
+                String s = "";
+
+                if(queue.size() > 0)
+                    s = queue.peek().getMsg();
+
+                ((TextView)drawerView.findViewById(R.id.submitted_word)).setText(s);
+
             }
         });
 
