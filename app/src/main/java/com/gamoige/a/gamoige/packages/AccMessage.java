@@ -1,5 +1,7 @@
 package com.gamoige.a.gamoige.packages;
 
+import android.util.Log;
+
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
@@ -21,7 +23,7 @@ public class AccMessage implements Package{
     public void doit(ConnectionFragment fragment, String senderId) {
         if(Games.Players.getCurrentPlayerId(fragment.getConnection()).equals(winner)){
             Games.Leaderboards.submitScore(fragment.getConnection(), " " + R.string.LEADERBOARD_ID, 4000);
-
+            Log.e("givorgi", "yeeeeeei");
         }
     }
 
