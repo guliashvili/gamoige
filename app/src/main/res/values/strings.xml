@@ -11,4 +11,7 @@
     <string name="select_friends_game_btn">Select game</string>
     <string name="make_me_drawer_btn">Draw</string>
     <string name="main_background_image">main_background_image</string>
+    <string name="you_win">You win</string>
+    <string name="game_result">Game result</string>
+    <string name="you_lost">You lost</string>
 </resources>
