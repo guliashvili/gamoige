@@ -142,16 +142,6 @@ public class PlayScreen extends Fragment implements CanvasListener{
             }
         });
 
-        // now just for test. this code below will be placed in game over part.
-        // win will be replaced with game result for the player
-        boolean win = false;
-        new LovelyInfoDialog(getContext())
-                .setTopColorRes(R.color.gameResultDialogColor)
-                .setIcon(win ? R.drawable.player_won : R.drawable.player_lost)
-                .setTitle(R.string.game_result)
-                .setMessage(win ? R.string.you_win : R.string.you_lost)
-                .show();
-
         State savedState;
         if (savedInstanceState != null)
             savedState = (State) savedInstanceState.getSerializable(STATE_KEY);
