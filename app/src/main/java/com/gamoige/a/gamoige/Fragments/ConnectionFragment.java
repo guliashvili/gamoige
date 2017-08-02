@@ -180,7 +180,7 @@ public class ConnectionFragment extends Fragment {
                 roomConfigBuilder.setAutoMatchCriteria(autoMatchCriteria);
             }
             RoomConfig roomConfig = roomConfigBuilder.build();
-            Games.RealTimeMultiplayer.create(googleApiClient, roomConfig);
+            Games.RealTimeMultiplayer.create(getConnection(), roomConfig);
 
             // prevent screen from sleeping during handshake
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

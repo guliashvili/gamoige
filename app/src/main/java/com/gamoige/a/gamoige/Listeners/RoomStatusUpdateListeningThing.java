@@ -63,6 +63,13 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
 
         // peer left -- see if game should be canceled
         if (!connectionFragment.isPlaying() && shouldCancelGame(room)) {
+            //TODO game terminate
+            for(String id : peers){
+                if(id.equals(connectionFragment.getLeader())){
+                    //should leave
+                }
+            }
+
             Games.RealTimeMultiplayer.leave(connectionFragment.getConnection(), null, connectionFragment.getRoom().getRoomId());
             connectionFragment.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
@@ -98,6 +105,14 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     public void onPeersDisconnected(Room room, List<String> peers) {
         Log.e("info","onPeersDisconnected " + room.getRoomId() + " " + peers.toString());
         connectionFragment.setRoom(room);
+        
+        //TODO game terminate
+        for(String id : peers){
+            if(id.equals(connectionFragment.getLeader())){
+                //should leave
+            }
+        }
+
         if (connectionFragment.isPlaying()) {
             // do game-specific handling of this -- remove player's avatar
             // from the screen, etc. If not enough players are left for
@@ -124,6 +139,11 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     private  boolean shouldCancelGame(Room room) {
         Log.e("info","shouldCancelGame " + room.getRoomId());
         connectionFragment.setRoom(room);
+        if(room.getParticipantIds().size() <= 1){
+            //TODO game terminated
+
+            return true;
+        }
 
         // TODO: Your game-specific cancellation logic here. For example, you might decide to
         // cancel the game if enough people have declined the invitation or left the room.
