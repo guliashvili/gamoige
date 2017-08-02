@@ -13,6 +13,7 @@ import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.Listeners.ConnectionCallbackListener;
 import com.gamoige.a.gamoige.Listeners.ConnectionFailedListener;
+import com.gamoige.a.gamoige.Listeners.InvitationListn;
 import com.gamoige.a.gamoige.Listeners.RealTimeMessageReceivedListeningThing;
 import com.gamoige.a.gamoige.Listeners.RelMsgSentCallBack;
 import com.gamoige.a.gamoige.Listeners.RoomStatusUpdateListeningThing;
@@ -55,7 +56,7 @@ public class ConnectionFragment extends Fragment {
     private RealTimeMessageReceivedListeningThing realTimeMessageRecivedListeningThing = new RealTimeMessageReceivedListeningThing(this);
     private RoomStatusUpdateListeningThing roomStatusUpdateListeningThing = new RoomStatusUpdateListeningThing(this);
     private RelMsgSentCallBack relMsgSentCallBack = new RelMsgSentCallBack(this);
-
+    private InvitationListn invitationListner = new InvitationListn(this);
     public static final String QE_RO_DAGVENZREVA_IS_TEGI = "CHVEIN_TEGI";
     public static final int REQUEST_LEADERBOARD = 1;
     public static final int RC_SIGN_IN = 9001;
@@ -84,7 +85,13 @@ public class ConnectionFragment extends Fragment {
         this.room = room;
     }
 
-    public GoogleApiClient getConnection() {if(!googleApiClient.isConnected()) googleApiClient.connect(); return googleApiClient; }
+    public GoogleApiClient getConnection() {
+        if(!googleApiClient.isConnected()) googleApiClient.connect();
+
+        if(googleApiClient.isConnected()) Games.Invitations.registerInvitationListener(googleApiClient, invitationListner);
+
+        return googleApiClient;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceBundle) {
@@ -99,6 +106,7 @@ public class ConnectionFragment extends Fragment {
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 // add other APIs and scopes here as needed
                 .build();
+
         googleApiClient.connect();
 
     }
@@ -265,5 +273,9 @@ public class ConnectionFragment extends Fragment {
 
     public void won(String sender, String msg) {
         sendAll(new AccMessage(sender, msg), true);
+    }
+
+    public InvitationListn getInvitationListner() {
+        return invitationListner;
     }
 }
