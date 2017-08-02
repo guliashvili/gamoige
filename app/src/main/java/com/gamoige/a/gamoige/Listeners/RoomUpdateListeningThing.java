@@ -23,7 +23,6 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
 
     @Override
     public void onRoomCreated(int statusCode, Room room) {
-        Log.e("info","onRoomCreated " + statusCode + " " + room.getRoomId());
         connectionFragment.setRoom(room);
         if (statusCode != GamesStatusCodes.STATUS_OK) {
             // let screen go to sleep
