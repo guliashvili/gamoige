@@ -105,4 +105,11 @@ public class MainActivity  extends AppCompatActivity {
     public HomeScreen getHomeScreen() {
         return homeScreen;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (activeMode == Mode.PLAY_SCREEN)
+            set(Mode.HOME_SCREEN);
+        else super.onBackPressed();
+    }
 }
