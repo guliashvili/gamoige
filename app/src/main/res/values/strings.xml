@@ -14,4 +14,5 @@
     <string name="you_win">You win</string>
     <string name="game_result">Game result</string>
     <string name="you_lost">You lost</string>
+    <string name="no_internet">No internet connection</string>
 </resources>

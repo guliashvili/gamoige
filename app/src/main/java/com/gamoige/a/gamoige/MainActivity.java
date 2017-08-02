@@ -101,4 +101,8 @@ public class MainActivity  extends AppCompatActivity {
     }
 
     public PlayScreen getPlayScreen() { return playScreen; }
+
+    public HomeScreen getHomeScreen() {
+        return homeScreen;
+    }
 }

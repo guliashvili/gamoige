@@ -110,6 +110,7 @@ public class HomeScreen extends Fragment {
 
     public void setActiveVisual(boolean active){
         view.setVisibility(active ? View.VISIBLE : View.GONE);
+        hide();
     }
 
     public void setActive(boolean active){
@@ -118,8 +119,12 @@ public class HomeScreen extends Fragment {
 
     @Override
     public void onResume() {
+        hide();
+        super.onResume();
+    }
+
+    public void hide() {
         avi.hide();
         loading = false;
-        super.onResume();
     }
 }

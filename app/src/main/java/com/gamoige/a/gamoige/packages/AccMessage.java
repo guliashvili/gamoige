@@ -25,7 +25,7 @@ public class AccMessage implements Package{
         String myId = fragment.getRoom().getParticipantId(Games.Players.getCurrentPlayer(fragment.getConnection()).getPlayerId());
         boolean win;
         if(myId.equals(winner)){
-            Games.Leaderboards.submitScore(fragment.getConnection(), " " + R.string.LEADERBOARD_ID, 4000);
+            Games.Leaderboards.submitScore(fragment.getConnection(), " " + R.string.LEADERBOARD_ID, 100);
             Log.e("givorgi", "yeeeeeei");
             win = true;
         } else win = false;

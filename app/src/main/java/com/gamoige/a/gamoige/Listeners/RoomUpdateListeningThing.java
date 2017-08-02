@@ -5,10 +5,13 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
+import com.gamoige.a.gamoige.MainActivity;
+import com.gamoige.a.gamoige.R;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateListener;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 
 /**
@@ -25,8 +28,15 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
     public void onRoomCreated(int statusCode, Room room) {
         connectionFragment.setRoom(room);
         if (statusCode != GamesStatusCodes.STATUS_OK) {
+            ((MainActivity) connectionFragment.getActivity()).getHomeScreen().hide();
             // let screen go to sleep
             connectionFragment.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            new LovelyInfoDialog(connectionFragment.getContext())
+                    .setTopColorRes(R.color.gameResultDialogColor)
+                    .setIcon(R.drawable.player_won)
+                    .setTitle(R.string.game_result)
+                    .setMessage(R.string.no_internet)
+                    .show();
             // show error message, return to main screen.
             //TODO
             return;
