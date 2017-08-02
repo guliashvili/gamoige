@@ -208,7 +208,7 @@ public class CanvasPreview extends View implements CanvasListener {
     }
     public void reset(){
         actions.clear();
-        clear();
+        fullReset();
         invalidate();
     }
 }
