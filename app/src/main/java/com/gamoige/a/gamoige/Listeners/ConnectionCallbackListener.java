@@ -2,6 +2,7 @@ package com.gamoige.a.gamoige.Listeners;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
@@ -27,9 +28,12 @@ public class ConnectionCallbackListener implements GoogleApiClient.ConnectionCal
         // TODO
         // The player is signed in. Hide the sign-in button and allow the
         // player to proceed.
+        Games.Invitations.registerInvitationListener(connectionFragment.getConnection(), connectionFragment.getInvitationListner());
+
         if (connectionHint != null) {
             Invitation inv = connectionHint.getParcelable(Multiplayer.EXTRA_INVITATION);
             if (inv != null) {
+
                 // accept invitation
                 RoomConfig.Builder roomConfigBuilder = connectionFragment.makeBasicRoomConfigBuilder();
                 roomConfigBuilder.setInvitationIdToAccept(inv.getInvitationId());
