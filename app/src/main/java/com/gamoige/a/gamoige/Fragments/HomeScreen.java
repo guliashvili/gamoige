@@ -69,10 +69,6 @@ public class HomeScreen extends Fragment {
         Log.e("info","startLeaderBoard");
 
         if (!loading) {
-            //TODO remove
-            Games.Leaderboards.submitScore(connectionFragment.getConnection(), getString(R.string.LEADERBOARD_ID), 1337);
-
-
             startActivityForResult(Games.Leaderboards.getLeaderboardIntent(connectionFragment.getConnection(),
                     getString(R.string.LEADERBOARD_ID)), ConnectionFragment.REQUEST_LEADERBOARD);
         }
