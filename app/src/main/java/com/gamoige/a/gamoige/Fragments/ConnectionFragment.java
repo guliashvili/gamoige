@@ -189,7 +189,7 @@ public class ConnectionFragment extends Fragment {
             Log.e("info","onActiityResult RC_WAITING_ROOM");
             if (response == RESULT_OK) {
                 // (start game)
-                startGame();
+
             }
             else if (response == Activity.RESULT_CANCELED) {
                 // Waiting room was dismissed with the back button. The meaning of this
@@ -247,7 +247,7 @@ public class ConnectionFragment extends Fragment {
 
     }
 
-    private void startGame() {
+    public void startGame() {
 
         Log.e("givorgi", "My id : " + Games.Players.getCurrentPlayerId(googleApiClient));
         power = Integer.MIN_VALUE;

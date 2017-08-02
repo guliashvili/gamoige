@@ -88,6 +88,9 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
             // add new player to an ongoing game
         } else if (shouldStartGame(room)) {
             // start game!
+            connectionFragment.startGame();
+
+
         }
     }
 
