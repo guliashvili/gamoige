@@ -29,19 +29,30 @@ public class AccMessage implements Package{
         String myId = fragment.getRoom().getParticipantId(Games.Players.getCurrentPlayer(fragment.getConnection()).getPlayerId());
         boolean win;
         if(myId.equals(winner)){
+            //*
             Games.Leaderboards.loadCurrentPlayerLeaderboardScore(
-                    fragment.getConnection(), "" + R.string.LEADERBOARD_ID,
+                    fragment.getConnection(),
+                    fragment.getContext().getString(R.string.LEADERBOARD_ID),
                     LeaderboardVariant.TIME_SPAN_ALL_TIME,
                     LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(
                     new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
                         ConnectionFragment connectionFragment = fragment;
                         @Override
                         public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
+                            Log.d("Donsky", "CHANGING SCORE...");
+                            long score;
+                            if (loadPlayerScoreResult != null) {
+                                score = ((loadPlayerScoreResult.getScore() != null) ? loadPlayerScoreResult.getScore().getRawScore() : 0);
+                            } else score = 0;
                             Games.Leaderboards.submitScore(connectionFragment.getConnection(),
-                                    "" + R.string.LEADERBOARD_ID,
-                                    loadPlayerScoreResult.getScore().getRawScore() + 100);
+                                    connectionFragment.getContext().getString(R.string.LEADERBOARD_ID),
+                                    (score + 100));
                         }
                     });
+            /*/
+            Games.Leaderboards.submitScore(fragment.getConnection(),
+                    fragment.getContext().getString(R.string.LEADERBOARD_ID), 100);
+            //*/
             Log.e("givorgi", "yeeeeeei");
             win = true;
         } else win = false;

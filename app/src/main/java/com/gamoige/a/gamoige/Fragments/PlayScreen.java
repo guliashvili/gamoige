@@ -172,6 +172,8 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 drawButton.setVisibility(View.VISIBLE);
                 canvasPreview.reset();
                 canvasEditorFragment.clear();
+                if (queue != null) queue.clear();
+                // ETC...
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);
