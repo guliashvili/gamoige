@@ -61,7 +61,7 @@ public class ConnectionFragment extends Fragment {
     public static final int REQUEST_LEADERBOARD = 1;
     public static final int RC_SIGN_IN = 9001;
     public final static int RC_WAITING_ROOM = 10002;
-    public final static int MIN_PLAYERS = 2;
+    public final static int MIN_PLAYERS = 3;
     public final static int RC_SELECT_PLAYERS = 10000;
 
     private Room room;
