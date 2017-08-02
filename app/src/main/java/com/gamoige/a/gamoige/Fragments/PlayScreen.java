@@ -204,5 +204,6 @@ public class PlayScreen extends Fragment implements CanvasListener{
 
     public void setActive(boolean active){
         setActiveVisual(active);
+        if (!active) reset();
     }
 }
