@@ -173,7 +173,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 canvasPreview.reset();
                 canvasEditorFragment.clear();
                 if (queue != null) queue.clear();
-                // ETC...
+                ((TextView) drawerView.findViewById(R.id.submitted_word)).setText("");
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);
