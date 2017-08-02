@@ -17,4 +17,5 @@
     <string name="no_internet">No internet connection</string>
     <string name="problem">Problem</string>
     <string name="someone_won">won</string>
+    <string name="wrong_answer">Wrong answer</string>
 </resources>
