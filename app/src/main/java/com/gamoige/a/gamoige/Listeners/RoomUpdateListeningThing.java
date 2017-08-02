@@ -33,8 +33,8 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
             connectionFragment.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             new LovelyInfoDialog(connectionFragment.getContext())
                     .setTopColorRes(R.color.gameResultDialogColor)
-                    .setIcon(R.drawable.player_won)
-                    .setTitle(R.string.game_result)
+                    .setIcon(R.drawable.error)
+                    .setTitle(R.string.problem)
                     .setMessage(R.string.no_internet)
                     .show();
             // show error message, return to main screen.
