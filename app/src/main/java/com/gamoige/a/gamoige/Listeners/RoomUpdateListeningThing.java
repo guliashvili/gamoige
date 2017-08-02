@@ -65,7 +65,7 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
     @Override
     public void onLeftRoom(int i, String s) {
         Log.e("info","onLeftRoom " + i + " " + s);
-
+        connectionFragment.setRoom(null);
     }
 
     @Override

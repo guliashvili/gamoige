@@ -278,4 +278,11 @@ public class ConnectionFragment extends Fragment {
     public InvitationListn getInvitationListner() {
         return invitationListner;
     }
+
+    public void leaveRoom(){
+        if (room != null) {
+            Games.RealTimeMultiplayer.leave(googleApiClient, roomUpdateListeningThing, room.getRoomId());
+            room = null;
+        }
+    }
 }
