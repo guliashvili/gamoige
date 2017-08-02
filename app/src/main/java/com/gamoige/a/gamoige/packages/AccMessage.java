@@ -8,6 +8,7 @@ import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesStatusCodes;
 import com.google.android.gms.games.leaderboard.LeaderboardVariant;
 import com.google.android.gms.games.leaderboard.Leaderboards;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
@@ -24,31 +25,51 @@ public class AccMessage implements Package{
         this.msg = msg;
     }
 
+    private class ScoreIncrementer implements ResultCallback<Leaderboards.LoadPlayerScoreResult> {
+        ConnectionFragment connectionFragment;
+
+        public ScoreIncrementer(ConnectionFragment fragment) {
+            connectionFragment = fragment;
+        }
+
+        @Override
+        public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
+            Log.d("Donsky", "CHANGING SCORE...");
+            long score = 100;
+            if (loadPlayerScoreResult.getStatus().getStatusCode() != GamesStatusCodes.STATUS_OK)
+                Log.e("Donsky", "loadPlayerScoreResult.getStatus().getStatusCode() != GamesStatusCodes.STATUS_OK");
+            if (loadPlayerScoreResult != null) {
+                if (loadPlayerScoreResult.getScore() != null) {
+                    score += loadPlayerScoreResult.getScore().getRawScore();
+                } else Log.e("Donsky", "loadPlayerScoreResult.getScore() == null");
+            } else Log.e("Donsky", "loadPlayerScoreResult == null");
+            Games.Leaderboards.submitScoreImmediate(connectionFragment.getConnection(),
+                    connectionFragment.getContext().getString(R.string.LEADERBOARD_ID), score)
+                    .setResultCallback(new ResultCallback<Leaderboards.SubmitScoreResult>() {
+                        @Override
+                        public void onResult(@NonNull Leaderboards.SubmitScoreResult submitScoreResult) {
+                            if (submitScoreResult.getStatus().getStatusCode() == 0) {
+                                Log.d("Donsky", "SCORE SHOULD BE UPDATED");
+                            } Log.e("Donsky", "SCORE FAILED TO BE UPDATED");
+                        }
+                    });
+            Log.d("Donsky", "NEW SCORE: " + score);
+        }
+    }
+
     @Override
     public void doit(final ConnectionFragment fragment, String senderId) {
         String myId = fragment.getRoom().getParticipantId(Games.Players.getCurrentPlayer(fragment.getConnection()).getPlayerId());
         boolean win;
         if(myId.equals(winner)){
             //*
+            Log.d("Donsky", "REQUESTING...");
             Games.Leaderboards.loadCurrentPlayerLeaderboardScore(
                     fragment.getConnection(),
                     fragment.getContext().getString(R.string.LEADERBOARD_ID),
                     LeaderboardVariant.TIME_SPAN_ALL_TIME,
                     LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(
-                    new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
-                        ConnectionFragment connectionFragment = fragment;
-                        @Override
-                        public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
-                            Log.d("Donsky", "CHANGING SCORE...");
-                            long score;
-                            if (loadPlayerScoreResult != null) {
-                                score = ((loadPlayerScoreResult.getScore() != null) ? loadPlayerScoreResult.getScore().getRawScore() : 0);
-                            } else score = 0;
-                            Games.Leaderboards.submitScore(connectionFragment.getConnection(),
-                                    connectionFragment.getContext().getString(R.string.LEADERBOARD_ID),
-                                    (score + 100));
-                        }
-                    });
+                            new ScoreIncrementer(fragment));
             /*/
             Games.Leaderboards.submitScore(fragment.getConnection(),
                     fragment.getContext().getString(R.string.LEADERBOARD_ID), 100);
