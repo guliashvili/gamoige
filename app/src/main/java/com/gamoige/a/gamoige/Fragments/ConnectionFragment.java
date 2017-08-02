@@ -202,8 +202,11 @@ public class ConnectionFragment extends Fragment {
     }
 
     public void sendAll(Serializable a, boolean relaible){
+        String myId = getRoom().getParticipantId(Games.Players.getCurrentPlayer(getConnection()).getPlayerId());
+
         for(Participant p : room.getParticipants()){
-            if(!Games.Players.getCurrentPlayerId(googleApiClient).equals(p.getParticipantId())){
+
+            if(!myId.equals(p.getParticipantId())){
                 send(a,true, p.getParticipantId());
             }
         }
