@@ -50,7 +50,7 @@ public class AccMessage implements Package{
                         public void onResult(@NonNull Leaderboards.SubmitScoreResult submitScoreResult) {
                             if (submitScoreResult.getStatus().getStatusCode() == 0) {
                                 Log.d("Donsky", "SCORE SHOULD BE UPDATED");
-                            } Log.e("Donsky", "SCORE FAILED TO BE UPDATED");
+                            } else Log.e("Donsky", "SCORE FAILED TO BE UPDATED");
                         }
                     });
             Log.d("Donsky", "NEW SCORE: " + score);
