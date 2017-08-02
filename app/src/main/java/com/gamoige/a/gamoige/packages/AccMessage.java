@@ -37,6 +37,7 @@ public class AccMessage implements Package{
                 .setTitle(R.string.game_result)
                 .setMessage(win ? R.string.you_win : R.string.you_lost)
                 .show();
+        ((MainActivity) fragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
     }
 
 }

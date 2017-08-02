@@ -137,7 +137,15 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 if(queue.size() > 0) {
                     GuessMessage guessMessage = queue.poll();
                     connectionFragment.won(guessMessage.getSender(), guessMessage.getMsg());
+                    new LovelyInfoDialog(connectionFragment.getContext())
+                            .setTopColorRes(R.color.gameResultDialogColor)
+                            .setIcon(R.drawable.player_won)
+                            .setTitle(R.string.game_result)
+                            .setMessage(connectionFragment.getRoom().getParticipant(guessMessage.getSender())
+                                    .getDisplayName() + getString(R.string.someone_won))
+                            .show();
                     Log.e("givorgi", "won: " + guessMessage.getSender() + " " + guessMessage.getMsg());
+                    ((MainActivity) getActivity()).set(MainActivity.Mode.HOME_SCREEN);
                 }
             }
         });

@@ -16,4 +16,5 @@
     <string name="you_lost">You lost</string>
     <string name="no_internet">No internet connection</string>
     <string name="problem">Problem</string>
+    <string name="someone_won">won</string>
 </resources>
