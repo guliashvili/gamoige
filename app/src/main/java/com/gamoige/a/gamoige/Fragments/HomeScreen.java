@@ -115,6 +115,7 @@ public class HomeScreen extends Fragment {
 
     public void setActive(boolean active){
         setActiveVisual(active);
+        if (active) connectionFragment.leaveRoom();
     }
 
     @Override
