@@ -80,7 +80,7 @@ public class HomeScreen extends Fragment {
         if (!loading) {
             // auto-match criteria to invite one random automatch opponent.
             // You can also specify more opponents (up to 3).
-            Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
+            Bundle am = RoomConfig.createAutoMatchCriteria(2, 4, 0);
 
             // build the room config:
             RoomConfig.Builder roomConfigBuilder = connectionFragment.makeBasicRoomConfigBuilder();

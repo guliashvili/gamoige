@@ -168,7 +168,7 @@ public class ConnectionFragment extends Fragment {
 
             if (minAutoMatchPlayers > 0) {
                 autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
-                        minAutoMatchPlayers, maxAutoMatchPlayers, 0);
+                        3, 5, 0);
             } else {
                 autoMatchCriteria = null;
             }
@@ -189,6 +189,7 @@ public class ConnectionFragment extends Fragment {
             Log.e("info","onActiityResult RC_WAITING_ROOM");
             if (response == RESULT_OK) {
                 // (start game)
+                startGame();
 
             }
             else if (response == Activity.RESULT_CANCELED) {
