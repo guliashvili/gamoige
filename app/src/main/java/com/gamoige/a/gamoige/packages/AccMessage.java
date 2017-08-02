@@ -1,11 +1,15 @@
 package com.gamoige.a.gamoige.packages;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.leaderboard.LeaderboardVariant;
+import com.google.android.gms.games.leaderboard.Leaderboards;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 /**
@@ -21,11 +25,23 @@ public class AccMessage implements Package{
     }
 
     @Override
-    public void doit(ConnectionFragment fragment, String senderId) {
+    public void doit(final ConnectionFragment fragment, String senderId) {
         String myId = fragment.getRoom().getParticipantId(Games.Players.getCurrentPlayer(fragment.getConnection()).getPlayerId());
         boolean win;
         if(myId.equals(winner)){
-            Games.Leaderboards.submitScore(fragment.getConnection(), " " + R.string.LEADERBOARD_ID, 100);
+            Games.Leaderboards.loadCurrentPlayerLeaderboardScore(
+                    fragment.getConnection(), "" + R.string.LEADERBOARD_ID,
+                    LeaderboardVariant.TIME_SPAN_ALL_TIME,
+                    LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(
+                    new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
+                        ConnectionFragment connectionFragment = fragment;
+                        @Override
+                        public void onResult(@NonNull Leaderboards.LoadPlayerScoreResult loadPlayerScoreResult) {
+                            Games.Leaderboards.submitScore(connectionFragment.getConnection(),
+                                    "" + R.string.LEADERBOARD_ID,
+                                    loadPlayerScoreResult.getScore().getRawScore() + 100);
+                        }
+                    });
             Log.e("givorgi", "yeeeeeei");
             win = true;
         } else win = false;
