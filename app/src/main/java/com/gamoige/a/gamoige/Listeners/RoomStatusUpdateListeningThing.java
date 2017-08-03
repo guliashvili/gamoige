@@ -73,6 +73,8 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                             .setTitle(R.string.unable_to_continue)
                             .setMessage(R.string.drawer_left_game_message)
                             .show();
+
+                    connectionFragment.leaveRoom();
                 }
             }
 
@@ -120,6 +122,8 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                         .setTitle(R.string.unable_to_continue)
                         .setMessage(R.string.drawer_left_game_message)
                         .show();
+
+                connectionFragment.leaveRoom();
             }
         }
 
@@ -156,6 +160,8 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                     .setTitle(R.string.unable_to_continue)
                     .setMessage(R.string.not_enough_players_left)
                     .show();
+
+            connectionFragment.leaveRoom();
 
             return true;
         }

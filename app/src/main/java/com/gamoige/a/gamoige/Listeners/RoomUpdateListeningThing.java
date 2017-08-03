@@ -59,7 +59,7 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
                     .setTitle(R.string.problem)
                     .setMessage(R.string.no_internet)
                     .show();
-            
+
             return;
         }
         // get waiting room intent
