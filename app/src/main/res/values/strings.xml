@@ -21,4 +21,7 @@
     <string name="not_enough_players_left">Not enough players left to continue</string>
     <string name="unable_to_continue">Unable to continue</string>
     <string name="drawer_left_game_message">Drawer left game</string>
+    <string name="quit_game_check_message">Are you sure that you want to quit game?</string>
+    <string name="yes">yes</string>
+    <string name="no">No</string>
 </resources>

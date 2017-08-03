@@ -1,11 +1,15 @@
 package com.gamoige.a.gamoige;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,8 +112,35 @@ public class MainActivity  extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (activeMode == Mode.PLAY_SCREEN)
-            set(Mode.HOME_SCREEN);
-        else super.onBackPressed();
+        if (activeMode == Mode.PLAY_SCREEN) {
+            QuitGameDialog dialog = new QuitGameDialog().setParent(this);
+            dialog.show(getSupportFragmentManager(), dialog.getTag());
+        } else super.onBackPressed();
+    }
+
+    public static class QuitGameDialog extends DialogFragment {
+        private MainActivity parent;
+
+        public QuitGameDialog setParent(MainActivity parent) {
+            this.parent = parent;
+            return this;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.quit_game_check_message)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            parent.set(Mode.HOME_SCREEN);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {}
+                    });
+
+            return builder.create();
+        }
     }
 }
