@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
+import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.Participant;
@@ -74,7 +75,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                             .setMessage(R.string.drawer_left_game_message)
                             .show();
 
-                    connectionFragment.leaveRoom();
+                    ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
                 }
             }
 
@@ -123,7 +124,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                         .setMessage(R.string.drawer_left_game_message)
                         .show();
 
-                connectionFragment.leaveRoom();
+                ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
             }
         }
 
@@ -161,7 +162,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                     .setMessage(R.string.not_enough_players_left)
                     .show();
 
-            connectionFragment.leaveRoom();
+            ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
 
             return true;
         }
