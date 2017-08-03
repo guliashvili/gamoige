@@ -10,13 +10,27 @@ import com.gamoige.a.gamoige.MainActivity;
 
 public class MasterDraw implements Package{
     private CanvasListener.Action action;
+    private int id;
 
-    public MasterDraw(CanvasListener.Action action) {
+    public MasterDraw(CanvasListener.Action action, int id) {
         this.action = action;
+        this.id = id;
     }
 
     @Override
     public void doit(ConnectionFragment fragment, String senderId) {
-        ((MainActivity) fragment.getActivity()).getPlayScreen().actionPerformed(action);
+        if(id <= fragment.lastId){
+            fragment.packages.clear();
+            fragment.lastId = id - 1;
+        }
+
+
+        fragment.packages.put(fragment.getId(), this);
+
+        while(fragment.packages.containsKey(fragment.lastId + 1)){
+            fragment.lastId++;
+            ((MainActivity) fragment.getActivity()).getPlayScreen().actionPerformed(fragment.packages.get(fragment.lastId).action);
+            fragment.packages.remove(fragment.lastId);
+        }
     }
 }

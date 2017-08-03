@@ -85,16 +85,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 connectionFragment.sendAll(new IAmDrawer(connectionFragment.getPower()), true);
             }
         });
-        canvasEditorFragment.addListener(new CanvasListener() {
-            @Override
-            public void actionPerformed(Action action) {
-                if (state == State.DRAWER) {
-                    connectionFragment.sendAll(new MasterDraw(action), true);
-                } else {
-                    Log.e("Donsky", "UNEXPECTED ACTION...");
-                }
-            }
-        });
+        canvasEditorFragment.addListener(connectionFragment.canvasListenerSender);
         previewView.findViewById(R.id.submit_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +166,8 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 canvasEditorFragment.clear();
                 if (queue != null) queue.clear();
                 ((TextView) drawerView.findViewById(R.id.submitted_word)).setText("");
+                connectionFragment.lastId = -1;
+                connectionFragment.canvasListenerSender.reset();
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);

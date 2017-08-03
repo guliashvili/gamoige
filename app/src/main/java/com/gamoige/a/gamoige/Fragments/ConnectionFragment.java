@@ -23,6 +23,8 @@ import com.gamoige.a.gamoige.Listeners.RoomUpdateListeningThing;
 import com.gamoige.a.gamoige.MainActivity;
 import com.gamoige.a.gamoige.R;
 import com.gamoige.a.gamoige.packages.AccMessage;
+import com.gamoige.a.gamoige.packages.CanvasListenerSender;
+import com.gamoige.a.gamoige.packages.MasterDraw;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
@@ -40,6 +42,8 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,7 +54,7 @@ import static android.app.Activity.RESULT_OK;
 public class ConnectionFragment extends Fragment {
     private static final String PREFS_NAME = "score";
     public ConnectionFragment connectionFragment;
-
+    public CanvasListenerSender canvasListenerSender = new CanvasListenerSender(this);
     private int onCreteId = 0;
     private int onCreateViewId = 0;
     private GoogleApiClient googleApiClient;
@@ -292,6 +296,9 @@ public class ConnectionFragment extends Fragment {
             Games.RealTimeMultiplayer.sendUnreliableMessage(googleApiClient, yourBytes, room.getRoomId(),participantId);
 
     }
+
+    public Map<Integer, MasterDraw> packages = new HashMap<>();
+    public int lastId = -1;
 
     public void startGame() {
 
