@@ -1,6 +1,8 @@
 package com.gamoige.a.gamoige.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.gamoige.a.gamoige.R;
 import com.google.android.gms.games.Games;
@@ -115,7 +118,12 @@ public class HomeScreen extends Fragment {
 
     public void setActive(boolean active){
         setActiveVisual(active);
-        if (active) connectionFragment.leaveRoom();
+        if (active) {
+            connectionFragment.leaveRoom();
+            connectionFragment.resetParticipants();
+            ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     @Override

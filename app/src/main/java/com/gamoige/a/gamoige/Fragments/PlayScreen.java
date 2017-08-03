@@ -1,5 +1,6 @@
 package com.gamoige.a.gamoige.Fragments;
 
+import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -169,10 +171,14 @@ public class PlayScreen extends Fragment implements CanvasListener{
                     connectionFragment.lastId = -1;
                     connectionFragment.canvasListenerSender.reset();
                 }
+                ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);
                 drawButton.setVisibility(View.GONE);
+                ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             } else if (state == State.PREVIEW) {
                 drawerView.setVisibility(View.GONE);
                 previewView.setVisibility(View.VISIBLE);
