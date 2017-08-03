@@ -208,4 +208,6 @@ public class PlayScreen extends Fragment implements CanvasListener{
         setActiveVisual(active);
         if (!active) reset();
     }
+
+    public boolean isDrawer() { return (state == State.DRAWER); }
 }
