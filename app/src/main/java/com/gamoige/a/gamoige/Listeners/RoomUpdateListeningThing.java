@@ -37,7 +37,7 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
                     .setTitle(R.string.problem)
                     .setMessage(R.string.no_internet)
                     .show();
-            
+
             return;
         }
         // get waiting room intent
@@ -52,8 +52,14 @@ public class RoomUpdateListeningThing implements RoomUpdateListener {
         if (statusCode != GamesStatusCodes.STATUS_OK) {
             // let screen go to sleep
             connectionFragment.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            // show error message, return to main screen.
-            //TODO
+
+            new LovelyInfoDialog(connectionFragment.getContext())
+                    .setTopColorRes(R.color.gameResultDialogColor)
+                    .setIcon(R.drawable.error)
+                    .setTitle(R.string.problem)
+                    .setMessage(R.string.no_internet)
+                    .show();
+            
             return;
         }
         // get waiting room intent
