@@ -25,7 +25,7 @@ public class MasterDraw implements Package{
         }
 
 
-        fragment.packages.put(fragment.getId(), this);
+        fragment.packages.put(id, this);
 
         while(fragment.packages.containsKey(fragment.lastId + 1)){
             fragment.lastId++;
