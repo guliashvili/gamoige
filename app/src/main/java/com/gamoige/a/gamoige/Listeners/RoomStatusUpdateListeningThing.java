@@ -60,17 +60,15 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     }
 
     private void quitIfRoomNotValid(Room room, List<String> peersThatLeft) {
-        if (((MainActivity)connectionFragment.getActivity()).getPlayScreen().isDrawer()) {
-            if(room.getParticipantIds().size() <= 1) {
-                new LovelyInfoDialog(connectionFragment.getContext())
-                        .setTopColorRes(R.color.gameResultDialogColor)
-                        .setIcon(R.drawable.error)
-                        .setTitle(R.string.unable_to_continue)
-                        .setMessage(R.string.not_enough_players_left)
-                        .show();
+        if (room.getParticipantIds().size() <= 1) {
+            new LovelyInfoDialog(connectionFragment.getContext())
+                    .setTopColorRes(R.color.gameResultDialogColor)
+                    .setIcon(R.drawable.error)
+                    .setTitle(R.string.unable_to_continue)
+                    .setMessage(R.string.not_enough_players_left)
+                    .show();
 
-                ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
-            }
+            ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
         }
         else for(String id : peersThatLeft){
             if(id.equals(connectionFragment.getLeader())){
