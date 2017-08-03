@@ -63,7 +63,6 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     private void quitIfRoomNotValid(Room room, List<String> peersThatLeft) {
         if (peersThatLeft == null) peersThatLeft = new ArrayList<>();
         connectionFragment.participantsLeft(peersThatLeft.size());
-        Log.d("Donsky", "Active participants: " + connectionFragment.activeParticipants(room));
         if (connectionFragment.activeParticipants(room) <= 1) {
             new LovelyInfoDialog(connectionFragment.getContext())
                     .setTopColorRes(R.color.gameResultDialogColor)
@@ -95,22 +94,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
 
         // peer left -- see if game should be canceled
         if (!connectionFragment.isPlaying() && shouldCancelGame(room)) {
-            /*
-            for(String id : peers){
-                if(id.equals(connectionFragment.getLeader())){
-                    new LovelyInfoDialog(connectionFragment.getContext())
-                            .setTopColorRes(R.color.gameResultDialogColor)
-                            .setIcon(R.drawable.error)
-                            .setTitle(R.string.unable_to_continue)
-                            .setMessage(R.string.drawer_left_game_message)
-                            .show();
-
-                    ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
-                }
-            }
-            /*/
             quitIfRoomNotValid(room, peers);
-            //*/
 
             Games.RealTimeMultiplayer.leave(connectionFragment.getConnection(), null, connectionFragment.getRoom().getRoomId());
             connectionFragment.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -147,22 +131,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     public void onPeersDisconnected(Room room, List<String> peers) {
         Log.e("info","onPeersDisconnected " + room.getRoomId() + " " + peers.toString());
         connectionFragment.setRoom(room);
-        /*
-        for(String id : peers){
-            if(id.equals(connectionFragment.getLeader())){
-                new LovelyInfoDialog(connectionFragment.getContext())
-                        .setTopColorRes(R.color.gameResultDialogColor)
-                        .setIcon(R.drawable.error)
-                        .setTitle(R.string.unable_to_continue)
-                        .setMessage(R.string.drawer_left_game_message)
-                        .show();
-
-                ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
-            }
-        }
-        /*/
         quitIfRoomNotValid(room, peers);
-        //*/
 
         if (connectionFragment.isPlaying()) {
             // do game-specific handling of this -- remove player's avatar
