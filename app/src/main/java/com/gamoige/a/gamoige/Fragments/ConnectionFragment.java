@@ -2,6 +2,7 @@ package com.gamoige.a.gamoige.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class ConnectionFragment extends Fragment {
+    private static final String PREFS_NAME = "score";
     public ConnectionFragment connectionFragment;
 
     private int onCreteId = 0;
@@ -110,6 +112,19 @@ public class ConnectionFragment extends Fragment {
         googleApiClient.connect();
 
     }
+
+    public int getCurrentScore(){
+        SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
+
+        return settings.getInt("score", 0);
+
+    }
+    public void setCurrentScore(int score){
+        SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
+
+        settings.edit().putInt("score", score).commit();
+    }
+
 
     @Nullable
     @Override
