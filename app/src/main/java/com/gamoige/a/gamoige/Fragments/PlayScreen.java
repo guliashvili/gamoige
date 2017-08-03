@@ -85,7 +85,6 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 connectionFragment.sendAll(new IAmDrawer(connectionFragment.getPower()), true);
             }
         });
-        canvasEditorFragment.addListener(connectionFragment.canvasListenerSender);
         previewView.findViewById(R.id.submit_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,6 +190,7 @@ public class PlayScreen extends Fragment implements CanvasListener{
 
     public void setConnectionFragment(ConnectionFragment fragment) {
         connectionFragment = fragment;
+        canvasEditorFragment.addListener(connectionFragment.canvasListenerSender);
     }
 
 
