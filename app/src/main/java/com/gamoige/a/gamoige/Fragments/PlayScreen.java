@@ -165,8 +165,10 @@ public class PlayScreen extends Fragment implements CanvasListener{
                 canvasEditorFragment.clear();
                 if (queue != null) queue.clear();
                 ((TextView) drawerView.findViewById(R.id.submitted_word)).setText("");
-                connectionFragment.lastId = -1;
-                connectionFragment.canvasListenerSender.reset();
+                if (connectionFragment != null) {
+                    connectionFragment.lastId = -1;
+                    connectionFragment.canvasListenerSender.reset();
+                }
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);
@@ -191,6 +193,10 @@ public class PlayScreen extends Fragment implements CanvasListener{
     public void setConnectionFragment(ConnectionFragment fragment) {
         connectionFragment = fragment;
         canvasEditorFragment.addListener(connectionFragment.canvasListenerSender);
+        if (state == State.UNDEFINED) {
+            connectionFragment.lastId = -1;
+            connectionFragment.canvasListenerSender.reset();
+        }
     }
 
 
