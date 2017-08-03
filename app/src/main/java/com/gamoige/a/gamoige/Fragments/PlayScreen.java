@@ -100,7 +100,8 @@ public class PlayScreen extends Fragment implements CanvasListener{
             public void onClick(View v) {
                 if(connectionFragment.getLeader() != null) {
                     EditText editText = ((TextInputLayout) previewView.findViewById(R.id.input_layout_guessed_word)).getEditText();
-                    connectionFragment.send(new GuessMessage(editText.getText().toString()), true, connectionFragment.getLeader());
+                    if (editText.getText().toString().length() > 0)
+                        connectionFragment.send(new GuessMessage(editText.getText().toString()), true, connectionFragment.getLeader());
                     editText.setText("");
                 }
             }
