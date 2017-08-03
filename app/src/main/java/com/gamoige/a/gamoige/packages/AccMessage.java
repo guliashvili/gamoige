@@ -36,7 +36,7 @@ public class AccMessage implements Package{
             int score = connectionFragment.getCurrentScore() + 100;
             connectionFragment.setCurrentScore(score);
 
-            Games.Leaderboards.submitScore(fragment.getConnection(),
+            Games.Leaderboards.submitScoreImmediate(fragment.getConnection(),
                     fragment.getContext().getString(R.string.LEADERBOARD_ID), score);
 
             win = true;

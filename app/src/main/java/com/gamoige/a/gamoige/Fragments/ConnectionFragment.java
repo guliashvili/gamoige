@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,9 +33,11 @@ import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
@@ -130,29 +133,18 @@ public class ConnectionFragment extends Fragment {
 
         return settings.getInt("score", 0);*/
 
-        String FILENAME = "hello_file";
-        try (FileInputStream fis = getContext().openFileInput(FILENAME)) {
-            byte[] b = new byte[4];
-            fis.read(b);
-            return Integer.valueOf(String.valueOf(b));
-        } catch (Exception e) {
 
-        }
-        return 0;
+        SharedPreferences sharedPref2 = getActivity().getPreferences(Context.MODE_PRIVATE);
+        long highScore = sharedPref2.getInt(getString(R.string.score_unique_key), 200);
+        Log.d("scoe scooscs", Long.toString(highScore));
+        return (int) highScore;
     }
     public void setCurrentScore(int score){
-        String FILENAME = "hello_file";
-        try(FileOutputStream fos = getContext().openFileOutput(FILENAME, Context.MODE_PRIVATE)) {
-
-            fos.write(String.valueOf(score).getBytes());
-
-        }catch (Exception e){
-
-        }
-
-        SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
-
-        settings.edit().putInt("score", score).commit();
+        Activity act = getActivity();
+        SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.score_unique_key), score);
+        editor.commit();
     }
 
 

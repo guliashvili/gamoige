@@ -24,4 +24,5 @@
     <string name="quit_game_check_message">Are you sure that you want to quit game?</string>
     <string name="yes">yes</string>
     <string name="no">No</string>
+    <string name="score_unique_key">aa</string>
 </resources>
