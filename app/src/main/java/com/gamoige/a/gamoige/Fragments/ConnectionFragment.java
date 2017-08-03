@@ -83,9 +83,15 @@ public class ConnectionFragment extends Fragment {
         return room;
     }
 
+    private int numParticipantsLeft = 0;
     public void setRoom(Room room) {
         this.room = room;
     }
+    public void resetParticipants() { numParticipantsLeft = 0; }
+    public void participantsLeft(int num) {
+        numParticipantsLeft += num;
+    }
+    public int activeParticipants(Room room) { return (room.getParticipantIds().size() - numParticipantsLeft); }
 
     public GoogleApiClient getConnection() {
         if(!googleApiClient.isConnected()) googleApiClient.connect();

@@ -12,6 +12,7 @@ import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateListener;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,7 +61,10 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     }
 
     private void quitIfRoomNotValid(Room room, List<String> peersThatLeft) {
-        if (room.getParticipantIds().size() <= 1) {
+        if (peersThatLeft == null) peersThatLeft = new ArrayList<>();
+        connectionFragment.participantsLeft(peersThatLeft.size());
+        Log.d("Donsky", "Active participants: " + connectionFragment.activeParticipants(room));
+        if (connectionFragment.activeParticipants(room) <= 1) {
             new LovelyInfoDialog(connectionFragment.getContext())
                     .setTopColorRes(R.color.gameResultDialogColor)
                     .setIcon(R.drawable.error)
