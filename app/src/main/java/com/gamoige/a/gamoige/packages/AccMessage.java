@@ -30,7 +30,6 @@ public class AccMessage implements Package{
     @Override
     public void doit(ConnectionFragment fragment, String senderId) {
         ConnectionFragment connectionFragment = fragment;
-        
         String myId = fragment.getRoom().getParticipantId(Games.Players.getCurrentPlayer(fragment.getConnection()).getPlayerId());
         boolean win;
         if(myId.equals(winner)){

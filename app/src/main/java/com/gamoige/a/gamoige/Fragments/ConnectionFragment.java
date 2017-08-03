@@ -1,6 +1,7 @@
 package com.gamoige.a.gamoige.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
@@ -113,13 +116,34 @@ public class ConnectionFragment extends Fragment {
 
     }
 
-    public int getCurrentScore(){
+    public int getCurrentScore() {
+
+
+        /*
         SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
 
-        return settings.getInt("score", 0);
+        return settings.getInt("score", 0);*/
 
+        String FILENAME = "hello_file";
+        try (FileInputStream fis = getContext().openFileInput(FILENAME)) {
+            byte[] b = new byte[4];
+            fis.read(b);
+            return Integer.valueOf(String.valueOf(b));
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
     public void setCurrentScore(int score){
+        String FILENAME = "hello_file";
+        try(FileOutputStream fos = getContext().openFileOutput(FILENAME, Context.MODE_PRIVATE)) {
+
+            fos.write(String.valueOf(score).getBytes());
+
+        }catch (Exception e){
+
+        }
+
         SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
 
         settings.edit().putInt("score", score).commit();
