@@ -4,10 +4,12 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.gamoige.a.gamoige.Fragments.ConnectionFragment;
+import com.gamoige.a.gamoige.R;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.Participant;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateListener;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.util.List;
 
@@ -63,10 +65,14 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
 
         // peer left -- see if game should be canceled
         if (!connectionFragment.isPlaying() && shouldCancelGame(room)) {
-            //TODO game terminate
             for(String id : peers){
                 if(id.equals(connectionFragment.getLeader())){
-                    //should leave
+                    new LovelyInfoDialog(connectionFragment.getContext())
+                            .setTopColorRes(R.color.gameResultDialogColor)
+                            .setIcon(R.drawable.error)
+                            .setTitle(R.string.unable_to_continue)
+                            .setMessage(R.string.drawer_left_game_message)
+                            .show();
                 }
             }
 
@@ -106,10 +112,14 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
         Log.e("info","onPeersDisconnected " + room.getRoomId() + " " + peers.toString());
         connectionFragment.setRoom(room);
         
-        //TODO game terminate
         for(String id : peers){
             if(id.equals(connectionFragment.getLeader())){
-                //should leave
+                new LovelyInfoDialog(connectionFragment.getContext())
+                        .setTopColorRes(R.color.gameResultDialogColor)
+                        .setIcon(R.drawable.error)
+                        .setTitle(R.string.unable_to_continue)
+                        .setMessage(R.string.drawer_left_game_message)
+                        .show();
             }
         }
 
@@ -139,8 +149,13 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     private  boolean shouldCancelGame(Room room) {
         Log.e("info","shouldCancelGame " + room.getRoomId());
         connectionFragment.setRoom(room);
-        if(room.getParticipantIds().size() <= 1){
-            //TODO game terminated
+        if(room.getParticipantIds().size() <= 1) {
+            new LovelyInfoDialog(connectionFragment.getContext())
+                    .setTopColorRes(R.color.gameResultDialogColor)
+                    .setIcon(R.drawable.error)
+                    .setTitle(R.string.unable_to_continue)
+                    .setMessage(R.string.not_enough_players_left)
+                    .show();
 
             return true;
         }
