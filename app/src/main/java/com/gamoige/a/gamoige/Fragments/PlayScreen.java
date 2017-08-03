@@ -171,14 +171,16 @@ public class PlayScreen extends Fragment implements CanvasListener{
                     connectionFragment.lastId = -1;
                     connectionFragment.canvasListenerSender.reset();
                 }
-                ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
-                        .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                if (getActivity().getCurrentFocus() != null)
+                    ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             } else if (state == State.DRAWER) {
                 drawerView.setVisibility(View.VISIBLE);
                 previewView.setVisibility(View.GONE);
                 drawButton.setVisibility(View.GONE);
-                ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
-                        .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                if (getActivity().getCurrentFocus() != null)
+                    ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             } else if (state == State.PREVIEW) {
                 drawerView.setVisibility(View.GONE);
                 previewView.setVisibility(View.VISIBLE);

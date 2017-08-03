@@ -121,8 +121,9 @@ public class HomeScreen extends Fragment {
         if (active) {
             connectionFragment.leaveRoom();
             connectionFragment.resetParticipants();
-            ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            if (getActivity().getCurrentFocus() != null)
+                ((InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         }
     }
 
