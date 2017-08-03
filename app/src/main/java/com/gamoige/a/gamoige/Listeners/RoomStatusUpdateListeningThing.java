@@ -59,6 +59,33 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
         connectionFragment.setRoom(room);
     }
 
+    private void quitIfRoomNotValid(Room room, List<String> peersThatLeft) {
+        if (((MainActivity)connectionFragment.getActivity()).getPlayScreen().isDrawer()) {
+            if(room.getParticipantIds().size() <= 1) {
+                new LovelyInfoDialog(connectionFragment.getContext())
+                        .setTopColorRes(R.color.gameResultDialogColor)
+                        .setIcon(R.drawable.error)
+                        .setTitle(R.string.unable_to_continue)
+                        .setMessage(R.string.not_enough_players_left)
+                        .show();
+
+                ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
+            }
+        }
+        else for(String id : peersThatLeft){
+            if(id.equals(connectionFragment.getLeader())){
+                new LovelyInfoDialog(connectionFragment.getContext())
+                        .setTopColorRes(R.color.gameResultDialogColor)
+                        .setIcon(R.drawable.error)
+                        .setTitle(R.string.unable_to_continue)
+                        .setMessage(R.string.drawer_left_game_message)
+                        .show();
+
+                ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
+            }
+        }
+    }
+
     @Override
     public void onPeerLeft(Room room, List<String> peers) {
         Log.e("info","onPeerLeft " + room.getRoomId() + " " + peers.toString());
@@ -66,6 +93,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
 
         // peer left -- see if game should be canceled
         if (!connectionFragment.isPlaying() && shouldCancelGame(room)) {
+            /*
             for(String id : peers){
                 if(id.equals(connectionFragment.getLeader())){
                     new LovelyInfoDialog(connectionFragment.getContext())
@@ -78,6 +106,9 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                     ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
                 }
             }
+            /*/
+            quitIfRoomNotValid(room, peers);
+            //*/
 
             Games.RealTimeMultiplayer.leave(connectionFragment.getConnection(), null, connectionFragment.getRoom().getRoomId());
             connectionFragment.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -114,7 +145,7 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
     public void onPeersDisconnected(Room room, List<String> peers) {
         Log.e("info","onPeersDisconnected " + room.getRoomId() + " " + peers.toString());
         connectionFragment.setRoom(room);
-        
+        /*
         for(String id : peers){
             if(id.equals(connectionFragment.getLeader())){
                 new LovelyInfoDialog(connectionFragment.getContext())
@@ -127,6 +158,9 @@ public class RoomStatusUpdateListeningThing implements RoomStatusUpdateListener 
                 ((MainActivity) connectionFragment.getActivity()).set(MainActivity.Mode.HOME_SCREEN);
             }
         }
+        /*/
+        quitIfRoomNotValid(room, peers);
+        //*/
 
         if (connectionFragment.isPlaying()) {
             // do game-specific handling of this -- remove player's avatar
